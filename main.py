@@ -23,13 +23,15 @@ def test_code():
     mnist_data = fetch_openml('mnist_784')
     #print(mnist_data.keys())
     X, y = mnist_data['data'], mnist_data['target']
+    X = X[0::10]
+    y = y[0::10]
     xtrain , xtest ,ytrain, ytest = train_test_split(X,y,test_size =0.2,shuffle = False,random_state =7)
 
     start=datetime.now()
 
-    dtlearner = dt.DTLearner(leaf_size=1, n_folds=5, verbose=True)  
-    dtlearner.train(xtrain,ytrain)
-    dtlearner.test(xtest,ytest)
+    dtlearner = dt.DTLearner(leaf_size=1, n_folds=2, verbose=True)  
+    clfs, alphas = dtlearner.train(xtrain,ytrain)
+    dtlearner.test(xtest,xtrain,ytest,ytrain,clfs,alphas)
 
     print(datetime.now()-start)
 
