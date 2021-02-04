@@ -31,7 +31,7 @@ class DTLearner(object):
         self.verbose = verbose
 
         # NOTE: Add alpha to param_dict, figure out wtf it is
-        self.param_dict = {"criterion": ['gini','entropy'], "max_depth": range(1,10), "min_samples_split": range(2,10), "min_samples_leaf": range(1,5)}
+        self.param_dict = {"criterion": ['gini','entropy'], "ccp_alpha": [0,0.0002, 0.0004, 0.0006, 0.0008, 0.001], "max_depth": range(1,25), "min_samples_split": range(2,5), "min_samples_leaf": range(1,5)}
         self.grid = 0
 
     def train(self, X_train, y_train, flag):
@@ -241,4 +241,4 @@ class DTLearner(object):
         self.grid = GridSearchCV(final_dt, param_grid = self.param_dict, cv=self.n_folds, verbose=1, n_jobs=-1)
         self.grid.fit(xtrain, ytrain)
 
-        print(self.grid.best_params_)
+        return self.grid.best_params_

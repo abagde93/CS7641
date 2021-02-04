@@ -15,6 +15,8 @@ from sklearn import tree
 import numpy as np
 
 import DTLearner as dt
+from sklearn.model_selection import ShuffleSplit
+from plot_learning_curve import plot_learning_curve
 
 def test_code():
     
@@ -25,8 +27,8 @@ def test_code():
     X_whole, y_whole = mnist_data['data'], mnist_data['target']
 
     # Take a subset of the data (10%)
-    X = X_whole[0::10]
-    y = y_whole[0::10]
+    X = X_whole[0::20]
+    y = y_whole[0::20]
 
     # Lets validate this data (we want to see that the 10% subset is still representative of the actual data)
     fig, ax = plt.subplots(2)
@@ -83,9 +85,29 @@ def test_code():
     min_samples_leafs = "NA"
     dt_choice_mss_based = dtlearner.test(xtest_val,xtrain_val,ytest_val,ytrain_val,clfs,alphas,depths,min_samples_leafs,min_samples_splits,flag)
 
-    # # Now that we have the decision tree, time for tuning hyperparameters
-    # dtlearner.tune_hyperparameters(dt_choice, xtrain, ytrain)
+    # Now that we have the decision tree, time for tuning hyperparameters
+    # Make a new classifier for this
+    clf = DecisionTreeClassifier(random_state=0)
+    clf.fit(xtrain_val, ytrain_val)
+    best_params = dtlearner.tune_hyperparameters(clf, xtrain_val, ytrain_val)
+    print("Best params are: ", best_params)
 
+    # Now do one more fit based on best params above
+    final_classifier = DecisionTreeClassifier(random_state=0,ccp_alpha=best_params['ccp_alpha'],criterion=best_params['criterion'], max_depth=best_params['max_depth'],min_samples_leaf=best_params['min_samples_leaf'],min_samples_split=best_params['min_samples_split'])
+    final_classifier.fit(xtrain, ytrain)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Learning Curves (Decision Trees)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = final_classifier
+    lc = plot_learning_curve(estimator, title, xtrain, ytrain, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/DT/dt_learningcurve.png')
 
     print(datetime.now()-start)
 
