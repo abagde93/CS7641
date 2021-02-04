@@ -68,7 +68,7 @@ class DTLearner(object):
 
         if flag == 1:
 
-            possible_depths = [1,2,3,4,5,6,7,8,9]
+            possible_depths = range(1,25)
 
             clfs = []
             for depth in possible_depths:
@@ -77,6 +77,30 @@ class DTLearner(object):
                 clfs.append(clf)
 
             return clfs, possible_depths
+
+        if flag == 2:
+
+            possible_min_samples_leaf = range(1,20)
+
+            clfs = []
+            for min_samples_leaf in possible_min_samples_leaf:
+                clf = DecisionTreeClassifier(random_state=0, min_samples_leaf=min_samples_leaf)
+                clf.fit(X_train, y_train)
+                clfs.append(clf)
+
+            return clfs, possible_min_samples_leaf
+
+        if flag == 3:
+
+            possible_min_samples_split = range(2,20)
+
+            clfs = []
+            for min_samples_split in possible_min_samples_split:
+                clf = DecisionTreeClassifier(random_state=0, min_samples_split=min_samples_split)
+                clf.fit(X_train, y_train)
+                clfs.append(clf)
+
+            return clfs, possible_min_samples_split
 
         # node_counts = [clf.tree_.node_count for clf in clfs]
         # depth = [clf.tree_.max_depth for clf in clfs]
@@ -94,7 +118,7 @@ class DTLearner(object):
 
 
 
-    def test(self, X_test,X_train, y_test, y_train, clfs, alphas, depths, flag):
+    def test(self, X_test,X_train, y_test, y_train, clfs, alphas, depths, min_samples_leafs, min_samples_splits, flag):
         '''
 
         :param X_test: test data
@@ -156,6 +180,60 @@ class DTLearner(object):
             plt.title('Accuracy vs Depth Value')
             plt.legend()
             plt.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/DT/depth_vs_accuracy.png')
+
+            return clfs[self.accuracy_score_test.index(max(self.accuracy_score_test))]
+
+        if flag == 2:
+            self.accuracy_score_train = []
+            self.accuracy_score_test = []
+
+            for clf in clfs:
+                predictions_train = clf.predict(X_train)
+                predictions_test = clf.predict(X_test)
+
+                self.accuracy_score_train.append(accuracy_score(y_train, predictions_train))
+                self.accuracy_score_test.append(accuracy_score(y_test, predictions_test))
+
+
+            # Print out best Accuracy/Depth combination
+            print("Best Accuracy Score (Test Validation Set): ", max(self.accuracy_score_test))
+            print("Best min_sample_leaf (Highest Accuracy, Test Validation Set): ", min_samples_leafs[self.accuracy_score_test.index(max(self.accuracy_score_test))])
+
+            plt.figure()
+            plt.plot(min_samples_leafs, self.accuracy_score_train, label = 'Accuracy Score (Training Validation Set)')
+            plt.plot(min_samples_leafs, self.accuracy_score_test, label = 'Accuracy Score (Test Validation Set)')
+            plt.xlabel('min_sample_leaf')
+            plt.ylabel('Accuracy')
+            plt.title('Accuracy vs min_sample_leaf Value')
+            plt.legend()
+            plt.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/DT/minsampleleaf_vs_accuracy.png')
+
+            return clfs[self.accuracy_score_test.index(max(self.accuracy_score_test))]
+
+        if flag == 3:
+            self.accuracy_score_train = []
+            self.accuracy_score_test = []
+
+            for clf in clfs:
+                predictions_train = clf.predict(X_train)
+                predictions_test = clf.predict(X_test)
+
+                self.accuracy_score_train.append(accuracy_score(y_train, predictions_train))
+                self.accuracy_score_test.append(accuracy_score(y_test, predictions_test))
+
+
+            # Print out best Accuracy/Depth combination
+            print("Best Accuracy Score (Test Validation Set): ", max(self.accuracy_score_test))
+            print("Best min_sample_split (Highest Accuracy, Test Validation Set): ", min_samples_splits[self.accuracy_score_test.index(max(self.accuracy_score_test))])
+
+            plt.figure()
+            plt.plot(min_samples_splits, self.accuracy_score_train, label = 'Accuracy Score (Training Validation Set)')
+            plt.plot(min_samples_splits, self.accuracy_score_test, label = 'Accuracy Score (Test Validation Set)')
+            plt.xlabel('min_sample_split')
+            plt.ylabel('Accuracy')
+            plt.title('Accuracy vs min_sample_split Value')
+            plt.legend()
+            plt.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/DT/minsamplesplit_vs_accuracy.png')
 
             return clfs[self.accuracy_score_test.index(max(self.accuracy_score_test))]
 

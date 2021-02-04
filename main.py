@@ -52,14 +52,36 @@ def test_code():
     clfs, alphas = dtlearner.train(xtrain_val,ytrain_val,flag)
     # Get the decision tree that is correlated to the alpha with highest accuracy
     depths = "NA"
-    dt_choice = dtlearner.test(xtest_val,xtrain_val,ytest_val,ytrain_val,clfs,alphas,depths,flag)
+    min_samples_leafs = "NA"
+    min_samples_splits = "NA"
+    dt_choice_alpha_based = dtlearner.test(xtest_val,xtrain_val,ytest_val,ytrain_val,clfs,alphas,depths,min_samples_leafs,min_samples_splits,flag)
 
     # Get a list of possible decision trees and their respective depths
     flag = 1
     clfs, depths = dtlearner.train(xtrain_val,ytrain_val,flag)
     # Get the decision tree that is correlated to the depth with highest accuracy
     alphas = "NA"
-    dt_choice = dtlearner.test(xtest_val,xtrain_val,ytest_val,ytrain_val,clfs,alphas,depths,flag)
+    min_samples_leafs = "NA"
+    min_samples_splits = "NA"
+    dt_choice_depth_based = dtlearner.test(xtest_val,xtrain_val,ytest_val,ytrain_val,clfs,alphas,depths,min_samples_leafs,min_samples_splits,flag)
+
+    # Get a list of possible decision trees and their respective min_samples_leaf
+    flag = 2
+    clfs, min_samples_leafs = dtlearner.train(xtrain_val,ytrain_val,flag)
+    # Get the decision tree that is correlated to the min_samples_leaf with highest accuracy
+    alphas = "NA"
+    depths = "NA"
+    min_samples_splits = "NA"
+    dt_choice_msl_based = dtlearner.test(xtest_val,xtrain_val,ytest_val,ytrain_val,clfs,alphas,depths,min_samples_leafs,min_samples_splits,flag)
+
+    # Get a list of possible decision trees and their respective min_samples_split
+    flag = 3
+    clfs, min_samples_splits = dtlearner.train(xtrain_val,ytrain_val,flag)
+    # Get the decision tree that is correlated to the min_samples_split with highest accuracy
+    alphas = "NA"
+    depths = "NA"
+    min_samples_leafs = "NA"
+    dt_choice_mss_based = dtlearner.test(xtest_val,xtrain_val,ytest_val,ytrain_val,clfs,alphas,depths,min_samples_leafs,min_samples_splits,flag)
 
     # # Now that we have the decision tree, time for tuning hyperparameters
     # dtlearner.tune_hyperparameters(dt_choice, xtrain, ytrain)
