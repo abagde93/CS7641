@@ -34,6 +34,12 @@ class DTLearner(object):
         self.param_dict = {"criterion": ['gini','entropy'], "ccp_alpha": [0,0.0002, 0.0004, 0.0006, 0.0008, 0.001], "max_depth": range(1,25), "min_samples_split": range(2,5), "min_samples_leaf": range(1,5)}
         self.grid = 0
 
+        # Write data to file for easy analysis
+        self.f = open("dt_info.txt", "a")
+        self.f.write("\n")
+        self.f.write(str(now.strftime("%d/%m/%Y %H:%M:%S")))
+
+
     def train(self, X_train, y_train, flag):
         '''
 
@@ -44,6 +50,7 @@ class DTLearner(object):
 
         if self.verbose:
             print("Training Decision Tree Model...")
+            self.f.write("Training Decision Tree Model...")
 
         if flag == 0:
 
@@ -144,6 +151,8 @@ class DTLearner(object):
             # Print out best Accuracy/Alpha combination
             print("Best Accuracy Score (Test Validation Set): ", max(self.accuracy_score_test))
             print("Best Alpha (Highest Accuracy, Test Validation Set): ", alphas[self.accuracy_score_test.index(max(self.accuracy_score_test))])
+            self.f.write("Best Accuracy Score (Test Validation Set): " + str(max(self.accuracy_score_test)) + "\n")
+            self.f.write("Best Alpha (Highest Accuracy, Test Validation Set): " + str(alphas[self.accuracy_score_test.index(max(self.accuracy_score_test))]) + "\n")
 
             plt.figure()
             plt.plot(alphas, self.accuracy_score_train, label = 'Accuracy Score (Training Validation Set)')
@@ -171,6 +180,8 @@ class DTLearner(object):
             # Print out best Accuracy/Depth combination
             print("Best Accuracy Score (Test Validation Set): ", max(self.accuracy_score_test))
             print("Best Depth (Highest Accuracy, Test Validation Set): ", depths[self.accuracy_score_test.index(max(self.accuracy_score_test))])
+            self.f.write("Best Accuracy Score (Test Validation Set): " + str(max(self.accuracy_score_test)) + "\n")
+            self.f.write("Best Depth (Highest Accuracy, Test Validation Set): " + str(depths[self.accuracy_score_test.index(max(self.accuracy_score_test))]) + "\n")
 
             plt.figure()
             plt.plot(depths, self.accuracy_score_train, label = 'Accuracy Score (Training Validation Set)')
@@ -198,6 +209,8 @@ class DTLearner(object):
             # Print out best Accuracy/Depth combination
             print("Best Accuracy Score (Test Validation Set): ", max(self.accuracy_score_test))
             print("Best min_sample_leaf (Highest Accuracy, Test Validation Set): ", min_samples_leafs[self.accuracy_score_test.index(max(self.accuracy_score_test))])
+            self.f.write("Best Accuracy Score (Test Validation Set): " + str(max(self.accuracy_score_test)) + "\n")
+            self.f.write("Best min_sample_leaf (Highest Accuracy, Test Validation Set): " + str(min_samples_leafs[self.accuracy_score_test.index(max(self.accuracy_score_test))]) + "\n")
 
             plt.figure()
             plt.plot(min_samples_leafs, self.accuracy_score_train, label = 'Accuracy Score (Training Validation Set)')
@@ -225,6 +238,8 @@ class DTLearner(object):
             # Print out best Accuracy/Depth combination
             print("Best Accuracy Score (Test Validation Set): ", max(self.accuracy_score_test))
             print("Best min_sample_split (Highest Accuracy, Test Validation Set): ", min_samples_splits[self.accuracy_score_test.index(max(self.accuracy_score_test))])
+            self.f.write("Best Accuracy Score (Test Validation Set): " + str(max(self.accuracy_score_test)) + "\n")
+            self.f.write("Best min_sample_split (Highest Accuracy, Test Validation Set): " + str(min_samples_splits[self.accuracy_score_test.index(max(self.accuracy_score_test))]) + "\n")
 
             plt.figure()
             plt.plot(min_samples_splits, self.accuracy_score_train, label = 'Accuracy Score (Training Validation Set)')
@@ -241,4 +256,6 @@ class DTLearner(object):
         self.grid = GridSearchCV(final_dt, param_grid = self.param_dict, cv=self.n_folds, verbose=1, n_jobs=-1)
         self.grid.fit(xtrain, ytrain)
 
+        self.f.write("Best Params fro GridSearchCV: " + str(self.grid.best_params_))
+        self.f.close()
         return self.grid.best_params_

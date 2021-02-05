@@ -1,0 +1,9 @@
+Training Decision Tree Model...Best Accuracy Score (Test Validation Set): 0.5928571428571429
+Best Alpha (Highest Accuracy, Test Validation Set): 0.004972473178994917
+Training Decision Tree Model...Best Accuracy Score (Test Validation Set): 0.6142857142857143
+Best Depth (Highest Accuracy, Test Validation Set): 9
+Training Decision Tree Model...Best Accuracy Score (Test Validation Set): 0.6
+Best min_sample_leaf (Highest Accuracy, Test Validation Set): 3
+Training Decision Tree Model...Best Accuracy Score (Test Validation Set): 0.6071428571428571
+Best min_sample_split (Highest Accuracy, Test Validation Set): 5
+Best Params fro GridSearchCV: {'ccp_alpha': 0, 'criterion': 'entropy', 'max_depth': 6, 'min_samples_leaf': 4, 'min_samples_split': 2}
