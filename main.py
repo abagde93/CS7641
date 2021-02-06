@@ -114,6 +114,11 @@ def test_DT(X_whole, y_whole, X, y):
 
     lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/DT/dt_learningcurve.png')
 
+    # Now time for final accuracy score for test set
+    dtlearner.final_test(final_classifier,xtest,ytest)
+
+
+
     print(datetime.now()-start)
 
 def test_NN(X_whole, y_whole, X, y):
@@ -137,7 +142,7 @@ def test_NN(X_whole, y_whole, X, y):
     hidden_layer_sizes_types = "NA"
     learning_rates = "NA"
     momentum_values = "NA"
-    nn_choice_activation_based = dtlearner.test(xtest_val,xtrain_val,ytest_val,ytrain_val,clfs,activation_types,hidden_layer_sizes_types,learning_rates,momentum_values,flag)
+    nn_choice_activation_based = nnlearner.test(xtest_val,xtrain_val,ytest_val,ytrain_val,clfs,activation_types,hidden_layer_sizes_types,learning_rates,momentum_values,flag)
 
     # # Get a list of possible decision trees and their respective depths
     # flag = 1
@@ -188,15 +193,18 @@ def test_NN(X_whole, y_whole, X, y):
     lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
 
 
-    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/DT/dt_learningcurve.png')
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/NN/nn_learningcurve.png')
+
+    # Now time for final accuracy score for test set
+    nnlearner.final_test(final_classifier,xtest,ytest)
 
     print(datetime.now()-start)
 
 
 if __name__ == "__main__":  		 
-    get_data() 	   		     		  		  		    	 		 		   		 		  
-    #test_dt()  
-    test_nn()	
+    X_whole, y_whole, X, y = get_data() 	   		     		  		  		    	 		 		   		 		  
+    test_DT(X_whole, y_whole, X, y)  
+    #test_NN(X_whole, y_whole, X, y)	
 
 
     

@@ -34,7 +34,7 @@ class NNLearner(object):
         # Write data to file for easy analysis
         self.f = open("nn_info.txt", "a")
         self.f.write("\n")
-        self.f.write(str(now.strftime("%d/%m/%Y %H:%M:%S")))
+        self.f.write(str(datetime.datetime.now()))
 
 
     def train(self, X_train, y_train, flag):
@@ -46,14 +46,15 @@ class NNLearner(object):
         '''
 
         if self.verbose:
-            print("Training Decision Tree Model...")
-            self.f.write("Training Decision Tree Model...")
+            print("Training Neural Network Model...")
+            self.f.write("Training Neural Network Model...")
 
         if flag == 0:
 
+            clfs = []
             activation_types = ['identity', 'logistic', 'tanh', 'relu']
             for activation_type in activation_types:
-                clf = MLPClassifier(acvtivation=activation_type)
+                clf = MLPClassifier(activation=activation_type)
                 clf.fit(X_train, y_train)
                 clfs.append(clf)
 
@@ -107,7 +108,7 @@ class NNLearner(object):
         '''
 
         if self.verbose:
-            print("Testing Decision Tree Model...")
+            print("Testing Neural Network Model...")
 
         if flag == 0:
             self.accuracy_score_train = []
@@ -121,15 +122,15 @@ class NNLearner(object):
                 self.accuracy_score_test.append(accuracy_score(y_test, predictions_test))
 
 
-            # Print out best Accuracy/Alpha combination
+            # Print out best Accuracy/Activation_Type combination
             print("Best Accuracy Score (Test Validation Set): ", max(self.accuracy_score_test))
-            print("Best Activation Type (Highest Accuracy, Test Validation Set): ", alphas[self.accuracy_score_test.index(max(self.accuracy_score_test))])
+            print("Best Activation Type (Highest Accuracy, Test Validation Set): ", activation_types[self.accuracy_score_test.index(max(self.accuracy_score_test))])
             self.f.write("Best Accuracy Score (Test Validation Set): " + str(max(self.accuracy_score_test)) + "\n")
-            self.f.write("Best Activation Type (Highest Accuracy, Test Validation Set): " + str(alphas[self.accuracy_score_test.index(max(self.accuracy_score_test))]) + "\n")
+            self.f.write("Best Activation Type (Highest Accuracy, Test Validation Set): " + str(activation_types[self.accuracy_score_test.index(max(self.accuracy_score_test))]) + "\n")
 
             plt.figure()
-            plt.plot(alphas, self.accuracy_score_train, label = 'Accuracy Score (Training Validation Set)')
-            plt.plot(alphas, self.accuracy_score_test, label = 'Accuracy Score (Test Validation Set)')
+            plt.plot(activation_types, self.accuracy_score_train, label = 'Accuracy Score (Training Validation Set)')
+            plt.plot(activation_types, self.accuracy_score_test, label = 'Accuracy Score (Test Validation Set)')
             plt.xlabel('Activation Type')
             plt.ylabel('Accuracy')
             plt.title('Accuracy vs Activation Type')

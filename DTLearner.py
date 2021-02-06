@@ -37,7 +37,7 @@ class DTLearner(object):
         # Write data to file for easy analysis
         self.f = open("dt_info.txt", "a")
         self.f.write("\n")
-        self.f.write(str(now.strftime("%d/%m/%Y %H:%M:%S")))
+        self.f.write(str(datetime.now()))
 
 
     def train(self, X_train, y_train, flag):
@@ -108,21 +108,6 @@ class DTLearner(object):
                 clfs.append(clf)
 
             return clfs, possible_min_samples_split
-
-        # node_counts = [clf.tree_.node_count for clf in clfs]
-        # depth = [clf.tree_.max_depth for clf in clfs]
-        # fig, ax = plt.subplots(2,1)
-        # ax[0].plot(ccp_alphas, node_counts, marker='o', drawstyle="steps-post")
-        # ax[0].set_xlabel("alpha")
-        # ax[0].set_ylabel("number of nodes")
-        # ax[0].set_title("Number of nodes vs alpha")
-        # ax[1].plot(ccp_alphas, depth, marker='o', drawstyle="steps-post")
-        # ax[1].set_xlabel("alpha")
-        # ax[1].set_ylabel("depth of tree")
-        # ax[1].set_title("Depth vs alpha")
-        # fig.tight_layout()
-        # plt.show()
-
 
 
     def test(self, X_test,X_train, y_test, y_train, clfs, alphas, depths, min_samples_leafs, min_samples_splits, flag):
@@ -222,6 +207,7 @@ class DTLearner(object):
             plt.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/DT/minsampleleaf_vs_accuracy.png')
 
             return clfs[self.accuracy_score_test.index(max(self.accuracy_score_test))]
+            
 
         if flag == 3:
             self.accuracy_score_train = []
@@ -252,10 +238,23 @@ class DTLearner(object):
 
             return clfs[self.accuracy_score_test.index(max(self.accuracy_score_test))]
 
+        # if flag = 4:
+        #     self.accuracy_score_test = []
+
+        #     for clf in clfs:
+        #         predictions_test = clf.predict(X_test)
+
+        #         self.accuracy_score_test.append(accuracy_score(y_test, predictions_test))
+
     def tune_hyperparameters(self, final_dt, xtrain, ytrain):
         self.grid = GridSearchCV(final_dt, param_grid = self.param_dict, cv=self.n_folds, verbose=1, n_jobs=-1)
         self.grid.fit(xtrain, ytrain)
 
-        self.f.write("Best Params fro GridSearchCV: " + str(self.grid.best_params_))
-        self.f.close()
+        self.f.write("Best Params from GridSearchCV: " + str(self.grid.best_params_))
         return self.grid.best_params_
+
+    def final_test(self, clf, xtest, ytest):
+        prediction_test = clf.predict(xtest)
+        print(accuracy_score(ytest, prediction_test))
+        self.f.write("Final Accuracy Score (Test Set): " + str(accuracy_score(ytest, prediction_test)))
+        self.f.close()
