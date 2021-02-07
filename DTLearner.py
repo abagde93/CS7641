@@ -238,13 +238,6 @@ class DTLearner(object):
 
             return clfs[self.accuracy_score_test.index(max(self.accuracy_score_test))]
 
-        # if flag = 4:
-        #     self.accuracy_score_test = []
-
-        #     for clf in clfs:
-        #         predictions_test = clf.predict(X_test)
-
-        #         self.accuracy_score_test.append(accuracy_score(y_test, predictions_test))
 
     def tune_hyperparameters(self, final_dt, xtrain, ytrain):
         self.grid = GridSearchCV(final_dt, param_grid = self.param_dict, cv=self.n_folds, verbose=1, n_jobs=-1)

@@ -28,13 +28,13 @@ class NNLearner(object):
         self.accuracy_score = 0.0
         self.verbose = verbose
 
-        self.param_dict = {"activation": ['identity', 'logistic', 'tanh', 'relu'], "momentum": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0], "learning_rate": ['constant', 'invscaling', 'adaptive'], "hidden_layer_sizes": (100,)}
+        self.param_dict = {"activation": ['identity', 'logistic', 'tanh', 'relu'], "momentum": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0], "learning_rate": ['constant', 'invscaling', 'adaptive'], "hidden_layer_sizes": [(100,),(50,50,50),(100,100,100),(100,200,100)], "solver": ['sgd']}
         self.grid = 0
 
         # Write data to file for easy analysis
         self.f = open("nn_info.txt", "a")
         self.f.write("\n")
-        self.f.write(str(datetime.datetime.now()))
+        self.f.write(str(datetime.now()))
 
 
     def train(self, X_train, y_train, flag):
@@ -54,52 +54,53 @@ class NNLearner(object):
             clfs = []
             activation_types = ['identity', 'logistic', 'tanh', 'relu']
             for activation_type in activation_types:
-                clf = MLPClassifier(activation=activation_type)
+                clf = MLPClassifier(activation=activation_type,solver='sgd')
                 clf.fit(X_train, y_train)
                 clfs.append(clf)
 
             return clfs, activation_types
 
-        # if flag == 1:
+        if flag == 1:
 
-        #     possible_depths = range(1,25)
+            momentum_values = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
-        #     clfs = []
-        #     for depth in possible_depths:
-        #         clf = DecisionTreeClassifier(random_state=0, max_depth=depth)
-        #         clf.fit(X_train, y_train)
-        #         clfs.append(clf)
+            clfs = []
+            for value in momentum_values:
+                clf = MLPClassifier(momentum=value,solver='sgd')
+                clf.fit(X_train, y_train)
+                clfs.append(clf)
 
-        #     return clfs, possible_depths
+            return clfs, momentum_values
 
-        # if flag == 2:
+        if flag == 2:
 
-        #     possible_min_samples_leaf = range(1,20)
+            learning_rates = ['constant', 'invscaling', 'adaptive']
 
-        #     clfs = []
-        #     for min_samples_leaf in possible_min_samples_leaf:
-        #         clf = DecisionTreeClassifier(random_state=0, min_samples_leaf=min_samples_leaf)
-        #         clf.fit(X_train, y_train)
-        #         clfs.append(clf)
+            clfs = []
+            for learning_rate in learning_rates:
+                clf = MLPClassifier(learning_rate=learning_rate,solver='sgd')
+                clf.fit(X_train, y_train)
+                clfs.append(clf)
 
-        #     return clfs, possible_min_samples_leaf
+            return clfs, learning_rates
 
-        # if flag == 3:
+        if flag == 3:
 
-        #     possible_min_samples_split = range(2,20)
+            hidden_layer_sizes_types = [(100,),(50,50,50),(100,100,100),(100,200,100)]
+            #hidden_layer_sizes_types_for_plot = ["(10,)","(100,)","(10,50,10)","(20,20,20)"]
 
-        #     clfs = []
-        #     for min_samples_split in possible_min_samples_split:
-        #         clf = DecisionTreeClassifier(random_state=0, min_samples_split=min_samples_split)
-        #         clf.fit(X_train, y_train)
-        #         clfs.append(clf)
+            clfs = []
+            for hidden_layer_size in hidden_layer_sizes_types:
+                clf = MLPClassifier(hidden_layer_sizes=hidden_layer_size,solver='sgd')
+                clf.fit(X_train, y_train)
+                clfs.append(clf)
 
-        #     return clfs, possible_min_samples_split
-
-
+            return clfs, hidden_layer_sizes_types
 
 
-    def test(self, X_test,X_train, y_test, y_train, clfs, activation_types, hidden_layer_sizes_types, learning_rates, momentum_values, flag):
+
+
+    def test(self, X_test,X_train, y_test, y_train, clfs, activation_types, momentum_values, learning_rates, hidden_layer_sizes_types, flag):
         '''
 
         :param X_test: test data
@@ -139,97 +140,105 @@ class NNLearner(object):
 
             return clfs[self.accuracy_score_test.index(max(self.accuracy_score_test))]
 
-        # if flag == 1:
-        #     self.accuracy_score_train = []
-        #     self.accuracy_score_test = []
+        if flag == 1:
+            self.accuracy_score_train = []
+            self.accuracy_score_test = []
 
-        #     for clf in clfs:
-        #         predictions_train = clf.predict(X_train)
-        #         predictions_test = clf.predict(X_test)
+            for clf in clfs:
+                predictions_train = clf.predict(X_train)
+                predictions_test = clf.predict(X_test)
 
-        #         self.accuracy_score_train.append(accuracy_score(y_train, predictions_train))
-        #         self.accuracy_score_test.append(accuracy_score(y_test, predictions_test))
-
-
-        #     # Print out best Accuracy/Depth combination
-        #     print("Best Accuracy Score (Test Validation Set): ", max(self.accuracy_score_test))
-        #     print("Best Depth (Highest Accuracy, Test Validation Set): ", depths[self.accuracy_score_test.index(max(self.accuracy_score_test))])
-        #     self.f.write("Best Accuracy Score (Test Validation Set): " + str(max(self.accuracy_score_test)) + "\n")
-        #     self.f.write("Best Depth (Highest Accuracy, Test Validation Set): " + str(depths[self.accuracy_score_test.index(max(self.accuracy_score_test))]) + "\n")
-
-        #     plt.figure()
-        #     plt.plot(depths, self.accuracy_score_train, label = 'Accuracy Score (Training Validation Set)')
-        #     plt.plot(depths, self.accuracy_score_test, label = 'Accuracy Score (Test Validation Set)')
-        #     plt.xlabel('Depth')
-        #     plt.ylabel('Accuracy')
-        #     plt.title('Accuracy vs Depth Value')
-        #     plt.legend()
-        #     plt.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/DT/depth_vs_accuracy.png')
-
-        #     return clfs[self.accuracy_score_test.index(max(self.accuracy_score_test))]
-
-        # if flag == 2:
-        #     self.accuracy_score_train = []
-        #     self.accuracy_score_test = []
-
-        #     for clf in clfs:
-        #         predictions_train = clf.predict(X_train)
-        #         predictions_test = clf.predict(X_test)
-
-        #         self.accuracy_score_train.append(accuracy_score(y_train, predictions_train))
-        #         self.accuracy_score_test.append(accuracy_score(y_test, predictions_test))
+                self.accuracy_score_train.append(accuracy_score(y_train, predictions_train))
+                self.accuracy_score_test.append(accuracy_score(y_test, predictions_test))
 
 
-        #     # Print out best Accuracy/Depth combination
-        #     print("Best Accuracy Score (Test Validation Set): ", max(self.accuracy_score_test))
-        #     print("Best min_sample_leaf (Highest Accuracy, Test Validation Set): ", min_samples_leafs[self.accuracy_score_test.index(max(self.accuracy_score_test))])
-        #     self.f.write("Best Accuracy Score (Test Validation Set): " + str(max(self.accuracy_score_test)) + "\n")
-        #     self.f.write("Best min_sample_leaf (Highest Accuracy, Test Validation Set): " + str(min_samples_leafs[self.accuracy_score_test.index(max(self.accuracy_score_test))]) + "\n")
+            # Print out best Accuracy/Depth combination
+            print("Best Accuracy Score (Test Validation Set): ", max(self.accuracy_score_test))
+            print("Best Momentum Value (Highest Accuracy, Test Validation Set): ", momentum_values[self.accuracy_score_test.index(max(self.accuracy_score_test))])
+            self.f.write("Best Accuracy Score (Test Validation Set): " + str(max(self.accuracy_score_test)) + "\n")
+            self.f.write("Best Momentum Value (Highest Accuracy, Test Validation Set): " + str(momentum_values[self.accuracy_score_test.index(max(self.accuracy_score_test))]) + "\n")
 
-        #     plt.figure()
-        #     plt.plot(min_samples_leafs, self.accuracy_score_train, label = 'Accuracy Score (Training Validation Set)')
-        #     plt.plot(min_samples_leafs, self.accuracy_score_test, label = 'Accuracy Score (Test Validation Set)')
-        #     plt.xlabel('min_sample_leaf')
-        #     plt.ylabel('Accuracy')
-        #     plt.title('Accuracy vs min_sample_leaf Value')
-        #     plt.legend()
-        #     plt.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/DT/minsampleleaf_vs_accuracy.png')
+            plt.figure()
+            plt.plot(momentum_values, self.accuracy_score_train, label = 'Accuracy Score (Training Validation Set)')
+            plt.plot(momentum_values, self.accuracy_score_test, label = 'Accuracy Score (Test Validation Set)')
+            plt.xlabel('Momentum Value')
+            plt.ylabel('Accuracy')
+            plt.title('Accuracy vs Momentum Value')
+            plt.legend()
+            plt.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/NN/momentum_vs_accuracy.png')
 
-        #     return clfs[self.accuracy_score_test.index(max(self.accuracy_score_test))]
+            return clfs[self.accuracy_score_test.index(max(self.accuracy_score_test))]
 
-        # if flag == 3:
-        #     self.accuracy_score_train = []
-        #     self.accuracy_score_test = []
+        if flag == 2:
+            self.accuracy_score_train = []
+            self.accuracy_score_test = []
 
-        #     for clf in clfs:
-        #         predictions_train = clf.predict(X_train)
-        #         predictions_test = clf.predict(X_test)
+            for clf in clfs:
+                predictions_train = clf.predict(X_train)
+                predictions_test = clf.predict(X_test)
 
-        #         self.accuracy_score_train.append(accuracy_score(y_train, predictions_train))
-        #         self.accuracy_score_test.append(accuracy_score(y_test, predictions_test))
+                self.accuracy_score_train.append(accuracy_score(y_train, predictions_train))
+                self.accuracy_score_test.append(accuracy_score(y_test, predictions_test))
 
 
-        #     # Print out best Accuracy/Depth combination
-        #     print("Best Accuracy Score (Test Validation Set): ", max(self.accuracy_score_test))
-        #     print("Best min_sample_split (Highest Accuracy, Test Validation Set): ", min_samples_splits[self.accuracy_score_test.index(max(self.accuracy_score_test))])
-        #     self.f.write("Best Accuracy Score (Test Validation Set): " + str(max(self.accuracy_score_test)) + "\n")
-        #     self.f.write("Best min_sample_split (Highest Accuracy, Test Validation Set): " + str(min_samples_splits[self.accuracy_score_test.index(max(self.accuracy_score_test))]) + "\n")
+            # Print out best Accuracy/Depth combination
+            print("Best Accuracy Score (Test Validation Set): ", max(self.accuracy_score_test))
+            print("Best Learning Rate (Highest Accuracy, Test Validation Set): ", learning_rates[self.accuracy_score_test.index(max(self.accuracy_score_test))])
+            self.f.write("Best Accuracy Score (Test Validation Set): " + str(max(self.accuracy_score_test)) + "\n")
+            self.f.write("Best Learning Rate (Highest Accuracy, Test Validation Set): " + str(learning_rates[self.accuracy_score_test.index(max(self.accuracy_score_test))]) + "\n")
 
-        #     plt.figure()
-        #     plt.plot(min_samples_splits, self.accuracy_score_train, label = 'Accuracy Score (Training Validation Set)')
-        #     plt.plot(min_samples_splits, self.accuracy_score_test, label = 'Accuracy Score (Test Validation Set)')
-        #     plt.xlabel('min_sample_split')
-        #     plt.ylabel('Accuracy')
-        #     plt.title('Accuracy vs min_sample_split Value')
-        #     plt.legend()
-        #     plt.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/DT/minsamplesplit_vs_accuracy.png')
+            plt.figure()
+            plt.plot(learning_rates, self.accuracy_score_train, label = 'Accuracy Score (Training Validation Set)')
+            plt.plot(learning_rates, self.accuracy_score_test, label = 'Accuracy Score (Test Validation Set)')
+            plt.xlabel('Learning Rate')
+            plt.ylabel('Accuracy')
+            plt.title('Accuracy vs Learning Rate')
+            plt.legend()
+            plt.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/NN/learningrate_vs_accuracy.png')
 
-        #     return clfs[self.accuracy_score_test.index(max(self.accuracy_score_test))]
+            return clfs[self.accuracy_score_test.index(max(self.accuracy_score_test))]
 
-    def tune_hyperparameters(self, final_dt, xtrain, ytrain):
-        self.grid = GridSearchCV(final_dt, param_grid = self.param_dict, cv=self.n_folds, verbose=1, n_jobs=-1)
+        if flag == 3:
+            self.accuracy_score_train = []
+            self.accuracy_score_test = []
+
+            for clf in clfs:
+                predictions_train = clf.predict(X_train)
+                predictions_test = clf.predict(X_test)
+
+                self.accuracy_score_train.append(accuracy_score(y_train, predictions_train))
+                self.accuracy_score_test.append(accuracy_score(y_test, predictions_test))
+
+
+            # Print out best Accuracy/Depth combination
+            print("Best Accuracy Score (Test Validation Set): ", max(self.accuracy_score_test))
+            print("Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): ", hidden_layer_sizes_types[self.accuracy_score_test.index(max(self.accuracy_score_test))])
+            self.f.write("Best Accuracy Score (Test Validation Set): " + str(max(self.accuracy_score_test)) + "\n")
+            self.f.write("Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): " + str(hidden_layer_sizes_types[self.accuracy_score_test.index(max(self.accuracy_score_test))]) + "\n")
+
+            plt.figure()
+            hl_plot_array = []
+            for item in hidden_layer_sizes_types:
+                hl_plot_array.append(str(item))
+            plt.plot(hl_plot_array, self.accuracy_score_train, label = 'Accuracy Score (Training Validation Set)')
+            plt.plot(hl_plot_array, self.accuracy_score_test, label = 'Accuracy Score (Test Validation Set)')
+            plt.xlabel('hidden_layer_sizes_types')
+            plt.ylabel('Accuracy')
+            plt.title('Accuracy vs hidden_layer_sizes_types')
+            plt.legend()
+            plt.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/NN/hiddenlayersizestypes_vs_accuracy.png')
+
+            return clfs[self.accuracy_score_test.index(max(self.accuracy_score_test))]
+
+    def tune_hyperparameters(self, final_nn, xtrain, ytrain):
+        self.grid = GridSearchCV(final_nn, param_grid = self.param_dict, cv=self.n_folds, verbose=1, n_jobs=-1)
         self.grid.fit(xtrain, ytrain)
 
         self.f.write("Best Params from GridSearchCV: " + str(self.grid.best_params_))
-        self.f.close()
         return self.grid.best_params_
+
+    def final_test(self, clf, xtest, ytest):
+        prediction_test = clf.predict(xtest)
+        print(accuracy_score(ytest, prediction_test))
+        self.f.write("Final Accuracy Score (Test Set): " + str(accuracy_score(ytest, prediction_test)))
+        self.f.close()
