@@ -17,12 +17,14 @@ import numpy as np
 import DTLearner as dt
 import NNLearner as nn
 import SVMLearner as svml
+import KNNLearner as knn
 
 from sklearn.model_selection import ShuffleSplit
 from plot_learning_curve import plot_learning_curve
 
 from sklearn.neural_network import MLPClassifier
 from sklearn import svm
+from sklearn.neighbors import KNeighborsClassifier
 
 def get_data():
     # Fetch and split Data here
@@ -31,8 +33,8 @@ def get_data():
     X_whole, y_whole = mnist_data['data'], mnist_data['target']
 
     # Take a subset of the data (10%)
-    X = X_whole[0::10]
-    y = y_whole[0::10]
+    X = X_whole[0::1000]
+    y = y_whole[0::1000]
 
     # Lets validate this data (we want to see that the 10% subset is still representative of the actual data)
     fig, ax = plt.subplots(2)
@@ -277,12 +279,106 @@ def test_SVM(X_whole, y_whole, X, y):
 
     print(datetime.now()-start)
 
+def test_KNN(X_whole, y_whole, X, y):
+    
+
+    # Split the initial data
+    xtrain , xtest ,ytrain, ytest = train_test_split(X,y,test_size =0.2,random_state =42)
+
+    start=datetime.now()
+
+    ### NNLearner Implementation ###
+    nnlearner = knn.KNNLearner(n_folds=3, verbose=True)  
+
+    # Create a validation set - do another train/test split on the training data
+    xtrain_val , xtest_val ,ytrain_val, ytest_val = train_test_split(X,y,test_size =0.2,random_state =42)
+
+    # Get a list of possible knn's and their respective neighbor_types
+    flag = 0
+    clfs, neighbor_types = knnlearner.train(xtrain_val,ytrain_val,flag)
+    # Get the knn that is correlated to the neighbor_type with highest accuracy
+    weight_values = "NA"
+    algorithm_types = "NA"
+    metric_types = "NA"
+    p_values = "NA"
+    knn_choice_neighbor_based = knnlearner.test(xtest_val,xtrain_val,ytest_val,ytrain_val,clfs,neighbor_types, weight_values, algorithm_types, metric_types, p_values, flag)
+
+    # Get a list of possible knns and their respective weight values
+    flag = 1
+    clfs, weight_values = knnlearner.train(xtrain_val,ytrain_val,flag)
+    # Get the knn that is correlated to the weight with highest accuracy
+    neighbor_types = "NA"
+    algorithm_types = "NA"
+    metric_types = "NA"
+    p_values = "NA"
+    knn_choice_weight_based = knnlearner.test(xtest_val,xtrain_val,ytest_val,ytrain_val,clfs,neighbor_types, weight_values, algorithm_types, metric_types, p_values, flag)
+
+    # Get a list of possible knns and their respective algorithm_types
+    flag = 2
+    clfs, algorithm_types = knnlearner.train(xtrain_val,ytrain_val,flag)
+    # Get the knn that is correlated to the algorithm with highest accuracy
+    neighbor_types = "NA"
+    weight_values = "NA"
+    metric_types = "NA"
+    p_values = "NA"
+    knn_choice_algorithm_based = knnlearner.test(xtest_val,xtrain_val,ytest_val,ytrain_val,clfs,neighbor_types, weight_values, algorithm_types, metric_types, p_values, flag)
+
+    # Get a list of possible knns and their respective metric types
+    flag = 3
+    clfs, metric_types = knnlearner.train(xtrain_val,ytrain_val,flag)
+    # Get the knn that is correlated to the metric with highest accuracy
+    neighbor_types = "NA"
+    weight_values = "NA"
+    algorithm_types = "NA"
+    p_values = "NA"
+    knn_choice_metric_based = knnlearner.test(xtest_val,xtrain_val,ytest_val,ytrain_val,clfs,neighbor_types, weight_values, algorithm_types, metric_types, p_values, flag)
+
+    # Get a list of possible knns and their respective p values
+    flag = 4
+    clfs, p_values = knnlearner.train(xtrain_val,ytrain_val,flag)
+    # Get the knn that is correlated to the p value with highest accuracy
+    neighbor_types = "NA"
+    weight_values = "NA"
+    algorithm_types = "NA"
+    metric_types = ['minkowski']
+    knn_choice_metric_based = knnlearner.test(xtest_val,xtrain_val,ytest_val,ytrain_val,clfs,neighbor_types, weight_values, algorithm_types, metric_types, p_values, flag)
+
+    # Now that we have the knn, time for tuning hyperparameters
+    # Make a new classifier for this
+    clf = KNeighborsClassifier()
+    clf.fit(xtrain_val, ytrain_val)
+    best_params = nnlearner.tune_hyperparameters(clf, xtrain_val, ytrain_val)
+    print("Best params are: ", best_params)
+
+    # Now do one more fit based on best params above
+    final_classifier = KNeighborsClassifier(n_neighbors=best_params['n_neighbors'],weights=best_params['weights'], algorithm=best_params['algorithm'],metric=best_params['metric'],p=best_params['p'])
+    final_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Learning Curves (Neural Nets)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = final_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/KNN/knn_learningcurve.png')
+
+    # Now time for final accuracy score for test set
+    nnlearner.final_test(final_classifier,xtest,ytest)
+
+    print(datetime.now()-start)
+
 
 if __name__ == "__main__":  		 
     X_whole, y_whole, X, y = get_data() 	   		     		  		  		    	 		 		   		 		  
     #test_DT(X_whole, y_whole, X, y)  
     #test_NN(X_whole, y_whole, X, y)	
-    test_SVM(X_whole, y_whole, X, y)
+    #test_SVM(X_whole, y_whole, X, y)
+    test_KNN(X_whole, y_whole, X, y)
 
 
     
