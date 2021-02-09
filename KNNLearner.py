@@ -54,7 +54,7 @@ class KNNLearner(object):
         if flag == 0:
 
             clfs = []
-            neighbor_types = ['identity', 'logistic', 'tanh', 'relu']
+            neighbor_types = [1,2,3,4,5,6,7,8,9,10]
             for neighbor in neighbor_types:
                 clf = KNeighborsClassifier(n_neighbors=neighbor)
                 clf.fit(X_train, y_train)
@@ -172,8 +172,8 @@ class KNNLearner(object):
             self.f.write("Best Weight Value (Highest Accuracy, Test Validation Set): " + str(weight_values[self.accuracy_score_test.index(max(self.accuracy_score_test))]) + "\n")
 
             plt.figure()
-            plt.plot(momentum_values, self.accuracy_score_train, label = 'Accuracy Score (Training Validation Set)')
-            plt.plot(momentum_values, self.accuracy_score_test, label = 'Accuracy Score (Test Validation Set)')
+            plt.plot(weight_values, self.accuracy_score_train, label = 'Accuracy Score (Training Validation Set)')
+            plt.plot(weight_values, self.accuracy_score_test, label = 'Accuracy Score (Test Validation Set)')
             plt.xlabel('Weight Value')
             plt.ylabel('Accuracy')
             plt.title('Accuracy vs Weight Value')
@@ -268,7 +268,7 @@ class KNNLearner(object):
             return clfs[self.accuracy_score_test.index(max(self.accuracy_score_test))]
 
     def tune_hyperparameters(self, final_knn, xtrain, ytrain):
-        self.grid = GridSearchCV(final_nn, param_grid = self.param_dict, cv=self.n_folds, verbose=1, n_jobs=-1)
+        self.grid = GridSearchCV(final_knn, param_grid = self.param_dict, cv=self.n_folds, verbose=1, n_jobs=-1)
         self.grid.fit(xtrain, ytrain)
 
         self.f.write("Best Params from GridSearchCV: " + str(self.grid.best_params_))

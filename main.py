@@ -33,8 +33,8 @@ def get_data():
     X_whole, y_whole = mnist_data['data'], mnist_data['target']
 
     # Take a subset of the data (10%)
-    X = X_whole[0::1000]
-    y = y_whole[0::1000]
+    X = X_whole[0::10]
+    y = y_whole[0::10]
 
     # Lets validate this data (we want to see that the 10% subset is still representative of the actual data)
     fig, ax = plt.subplots(2)
@@ -288,7 +288,7 @@ def test_KNN(X_whole, y_whole, X, y):
     start=datetime.now()
 
     ### NNLearner Implementation ###
-    nnlearner = knn.KNNLearner(n_folds=3, verbose=True)  
+    knnlearner = knn.KNNLearner(n_folds=3, verbose=True)  
 
     # Create a validation set - do another train/test split on the training data
     xtrain_val , xtest_val ,ytrain_val, ytest_val = train_test_split(X,y,test_size =0.2,random_state =42)
@@ -347,7 +347,7 @@ def test_KNN(X_whole, y_whole, X, y):
     # Make a new classifier for this
     clf = KNeighborsClassifier()
     clf.fit(xtrain_val, ytrain_val)
-    best_params = nnlearner.tune_hyperparameters(clf, xtrain_val, ytrain_val)
+    best_params = knnlearner.tune_hyperparameters(clf, xtrain_val, ytrain_val)
     print("Best params are: ", best_params)
 
     # Now do one more fit based on best params above
@@ -368,7 +368,7 @@ def test_KNN(X_whole, y_whole, X, y):
     lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/KNN/knn_learningcurve.png')
 
     # Now time for final accuracy score for test set
-    nnlearner.final_test(final_classifier,xtest,ytest)
+    knnlearner.final_test(final_classifier,xtest,ytest)
 
     print(datetime.now()-start)
 
