@@ -18,6 +18,7 @@ import DTLearner as dt
 import NNLearner as nn
 import SVMLearner as svml
 import KNNLearner as knn
+import BoostingLearner as boost
 
 from sklearn.model_selection import ShuffleSplit
 from plot_learning_curve import plot_learning_curve
@@ -25,6 +26,9 @@ from plot_learning_curve import plot_learning_curve
 from sklearn.neural_network import MLPClassifier
 from sklearn import svm
 from sklearn.neighbors import KNeighborsClassifier
+
+from sklearn.ensemble import AdaBoostClassifier
+
 
 def get_data():
     # Fetch and split Data here
@@ -58,6 +62,23 @@ def test_DT(X_whole, y_whole, X, y):
 
     # Create a validation set - do another train/test split on the training data
     xtrain_val , xtest_val ,ytrain_val, ytest_val = train_test_split(X,y,test_size =0.2,random_state =42)
+
+    # Initial Fit
+    initial_classifier = DecisionTreeClassifier()
+    intial_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Initial Learning Curves (Decision Trees)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = initial_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/DT/dt_learningcurve.png')
 
     # Get a list of possible decision trees and their respective alphas
     flag = 0
@@ -373,12 +394,82 @@ def test_KNN(X_whole, y_whole, X, y):
     print(datetime.now()-start)
 
 
+def test_Boosting(X_whole, y_whole, X, y):
+    
+
+    # Split the initial data
+    xtrain , xtest ,ytrain, ytest = train_test_split(X,y,test_size =0.2,random_state =42)
+
+    start=datetime.now()
+
+    ### Boosting Implementation ###
+    boostlearner = boost.BoostingLearner(n_folds=3, verbose=True)  
+
+    # Create a validation set - do another train/test split on the training data
+    xtrain_val , xtest_val ,ytrain_val, ytest_val = train_test_split(X,y,test_size =0.2,random_state =42)
+
+    # Get a list of possible boostings and their respective alphas
+    flag = 0
+    clfs, pruning_types = boostlearner.train(xtrain_val,ytrain_val,flag)
+    # Get the boosting that is correlated to the alpha with highest accuracy
+    number_estimators = "NA"
+    learning_rates = "NA"
+    boosting_choice_alpha_based = boostlearner.test(xtest_val,xtrain_val,ytest_val,ytrain_val,clfs,pruning_types, number_estimators, learning_rates, flag)
+
+    # Get a list of possible boostings and their respective estimators
+    flag = 1
+    clfs, number_estimators = boostlearner.train(xtrain_val,ytrain_val,flag)
+    # Get the boosting that is correlated to the number of estimators with highest accuracy
+    pruning_types = "NA"
+    learning_rates = "NA"
+    boosting_choice_estimators_based = boostlearner.test(xtest_val,xtrain_val,ytest_val,ytrain_val,clfs,pruning_types, number_estimators, learning_rates, flag)
+
+    # Get a list of possible boostings and their respective learning_rates
+    flag = 2
+    clfs, learning_rates = boostlearner.train(xtrain_val,ytrain_val,flag)
+    # Get the boosting that is correlated to the learning rate with highest accuracy
+    pruning_types = "NA"
+    number_estimators = "NA"
+    boosting_choice_lr_based = boostlearner.test(xtest_val,xtrain_val,ytest_val,ytrain_val,clfs,pruning_types, number_estimators, learning_rates, flag)
+
+
+    # Now that we have the boosting, time for tuning hyperparameters
+    # Make a new classifier for this
+    clf = AdaBoostClassifier()
+    clf.fit(xtrain_val, ytrain_val)
+    best_params = boostlearner.tune_hyperparameters(clf, xtrain_val, ytrain_val)
+    print("Best params are: ", best_params)
+
+    # Now do one more fit based on best params above
+    final_classifier = AdaBoostClassifier(base_estimator=best_params['base_estimator'],n_estimators=best_params['n_estimators'], learning_rate=best_params['learning_rate'])
+    final_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Learning Curves (Boosting)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = final_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/Boosting/boosting_learningcurve.png')
+
+    # Now time for final accuracy score for test set
+    boostlearner.final_test(final_classifier,xtest,ytest)
+
+    print(datetime.now()-start)
+
+
 if __name__ == "__main__":  		 
     X_whole, y_whole, X, y = get_data() 	   		     		  		  		    	 		 		   		 		  
     #test_DT(X_whole, y_whole, X, y)  
     #test_NN(X_whole, y_whole, X, y)	
     #test_SVM(X_whole, y_whole, X, y)
-    test_KNN(X_whole, y_whole, X, y)
+    #test_KNN(X_whole, y_whole, X, y)
+    test_Boosting(X_whole, y_whole, X, y)
 
 
     
