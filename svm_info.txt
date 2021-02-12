@@ -23,3 +23,14 @@ Best Gamma Value (poly kernel) (Highest Accuracy, Test Validation Set): auto
 Best Accuracy Score (sigmoid kernel) (Test Validation Set): 0.8357142857142857
 Best Gamma Value (sigmoid kernel) (Highest Accuracy, Test Validation Set): scale
 Best Params from GridSearchCV: {'degree': 2, 'gamma': 'auto', 'kernel': 'poly'}Final Accuracy Score (Test Set): 0.9385714285714286
+2021-02-11 20:01:40.490857Training SVM Model...Best Accuracy Score (Test Validation Set): 0.9214285714285714
+Best Kernel (Highest Accuracy, Test Validation Set): rbf
+Training SVM Model...Best Accuracy Score (Test Validation Set): 0.9071428571428571
+Best Degree Value (Highest Accuracy, Test Validation Set): 2
+Training SVM Model...Best Accuracy Score (rbf kernel) (Test Validation Set): 0.9214285714285714
+Best Gamma Value (rbf kernel) (Highest Accuracy, Test Validation Set): scale
+Best Accuracy Score (poly kernel) (Test Validation Set): 0.8785714285714286
+Best Gamma Value (poly kernel) (Highest Accuracy, Test Validation Set): auto
+Best Accuracy Score (sigmoid kernel) (Test Validation Set): 0.8571428571428571
+Best Gamma Value (sigmoid kernel) (Highest Accuracy, Test Validation Set): scale
+Best Params from GridSearchCV: {'degree': 1, 'gamma': 'scale', 'kernel': 'rbf'}Final Accuracy Score (Test Set): 0.9214285714285714

@@ -71,3 +71,15 @@ Training KNN Model...Best Accuracy Score (Test Validation Set): 0.90428571428571
 Best Metric (Highest Accuracy, Test Validation Set): minkowski
 Training KNN Model...Best Accuracy Score (Test Validation Set): 0.9192857142857143
 Best P Value (minkowski metric) (Highest Accuracy, Test Validation Set): 4
+
+2021-02-11 20:01:52.881750Training KNN Model...Best Accuracy Score (Test Validation Set): 0.8642857142857143
+Best Neighbor Size (Highest Accuracy, Test Validation Set): 5
+Training KNN Model...Best Accuracy Score (Test Validation Set): 0.8714285714285714
+Best Weight Value (Highest Accuracy, Test Validation Set): distance
+Training KNN Model...Best Accuracy Score (Test Validation Set): 0.8642857142857143
+Best Algorithm (Highest Accuracy, Test Validation Set): auto
+Training KNN Model...Best Accuracy Score (Test Validation Set): 0.8642857142857143
+Best Metric (Highest Accuracy, Test Validation Set): minkowski
+Training KNN Model...Best Accuracy Score (Test Validation Set): 0.8714285714285714
+Best P Value (minkowski metric) (Highest Accuracy, Test Validation Set): 3
+Best Params from GridSearchCV: {'algorithm': 'auto', 'metric': 'minkowski', 'n_neighbors': 4, 'p': 4, 'weights': 'distance'}Final Accuracy Score (Test Set): 0.8928571428571429

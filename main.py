@@ -37,8 +37,8 @@ def get_data():
     X_whole, y_whole = mnist_data['data'], mnist_data['target']
 
     # Take a subset of the data (10%)
-    X = X_whole[0::10]
-    y = y_whole[0::10]
+    X = X_whole[0::100]
+    y = y_whole[0::100]
 
     # Lets validate this data (we want to see that the 10% subset is still representative of the actual data)
     fig, ax = plt.subplots(2)
@@ -65,7 +65,7 @@ def test_DT(X_whole, y_whole, X, y):
 
     # Initial Fit
     initial_classifier = DecisionTreeClassifier()
-    intial_classifier.fit(xtrain_val, ytrain_val)
+    initial_classifier.fit(xtrain_val, ytrain_val)
 
     fig, axes = plt.subplots(3, 1, figsize=(10, 15))
 
@@ -78,7 +78,7 @@ def test_DT(X_whole, y_whole, X, y):
     lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
 
 
-    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/DT/dt_learningcurve.png')
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/DT/dt_learningcurve_initial.png')
 
     # Get a list of possible decision trees and their respective alphas
     flag = 0
@@ -159,6 +159,23 @@ def test_NN(X_whole, y_whole, X, y):
     # Create a validation set - do another train/test split on the training data
     xtrain_val , xtest_val ,ytrain_val, ytest_val = train_test_split(X,y,test_size =0.2,random_state =42)
 
+    # Initial Fit
+    initial_classifier = MLPClassifier()
+    initial_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Initial Learning Curves (Neural Nets)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = initial_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/NN/nn_learningcurve_initial.png')
+
     # Get a list of possible neural nets and their respective activation_types
     flag = 0
     clfs, activation_types = nnlearner.train(xtrain_val,ytrain_val,flag)
@@ -238,6 +255,24 @@ def test_SVM(X_whole, y_whole, X, y):
     # Create a validation set - do another train/test split on the training data
     xtrain_val , xtest_val ,ytrain_val, ytest_val = train_test_split(X,y,test_size =0.2,random_state =42)
 
+    # Initial Fit
+    initial_classifier = svm.SVC()
+    initial_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Initial Learning Curves (SVM)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = initial_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/SVM/svm_learningcurve_initial.png')
+
+
     # Get a list of possible neural nets and their respective kernel types
     flag = 0
     clfs, kernel_types = svmlearner.train(xtrain_val,ytrain_val,flag)
@@ -313,6 +348,23 @@ def test_KNN(X_whole, y_whole, X, y):
 
     # Create a validation set - do another train/test split on the training data
     xtrain_val , xtest_val ,ytrain_val, ytest_val = train_test_split(X,y,test_size =0.2,random_state =42)
+
+    # Initial Fit
+    initial_classifier = KNeighborsClassifier()
+    initial_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Initial Learning Curves (KNN)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = initial_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/KNN/knn_learningcurve_initial.png')
 
     # Get a list of possible knn's and their respective neighbor_types
     flag = 0
@@ -408,6 +460,23 @@ def test_Boosting(X_whole, y_whole, X, y):
     # Create a validation set - do another train/test split on the training data
     xtrain_val , xtest_val ,ytrain_val, ytest_val = train_test_split(X,y,test_size =0.2,random_state =42)
 
+    # Initial Fit
+    initial_classifier = AdaBoostClassifier()
+    initial_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Initial Learning Curves (Adaboost)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = initial_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/Boosting/boosting_learningcurve_initial.png')
+
     # Get a list of possible boostings and their respective alphas
     flag = 0
     clfs, pruning_types = boostlearner.train(xtrain_val,ytrain_val,flag)
@@ -466,10 +535,10 @@ def test_Boosting(X_whole, y_whole, X, y):
 if __name__ == "__main__":  		 
     X_whole, y_whole, X, y = get_data() 	   		     		  		  		    	 		 		   		 		  
     #test_DT(X_whole, y_whole, X, y)  
-    #test_NN(X_whole, y_whole, X, y)	
+    test_NN(X_whole, y_whole, X, y)	
     #test_SVM(X_whole, y_whole, X, y)
     #test_KNN(X_whole, y_whole, X, y)
-    test_Boosting(X_whole, y_whole, X, y)
+    #test_Boosting(X_whole, y_whole, X, y)
 
 
     
