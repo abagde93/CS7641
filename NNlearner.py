@@ -28,7 +28,7 @@ class NNLearner(object):
         self.accuracy_score = 0.0
         self.verbose = verbose
 
-        self.param_dict = {"activation": ['identity', 'logistic', 'tanh', 'relu'], "momentum": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0], "learning_rate": ['constant', 'invscaling', 'adaptive'], "hidden_layer_sizes": [(100,),(50,50,50),(100,100,100),(100,200,100)], "solver": ['sgd']}
+        self.param_dict = {"activation": ['identity', 'logistic', 'tanh', 'relu'], "momentum": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0], "learning_rate": ['constant', 'invscaling', 'adaptive'], "hidden_layer_sizes": [(50,),(100,),(50, 50),(50, 100),(100, 50), (100, 100)], "solver": ['sgd']}
         self.grid = 0
 
         # Write data to file for easy analysis

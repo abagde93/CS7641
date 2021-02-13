@@ -63,3 +63,39 @@ Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.742
 Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): (100, 100, 100)
 
 2021-02-11 19:37:24.929281
+2021-02-11 20:03:14.351441Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.8
+Best Activation Type (Highest Accuracy, Test Validation Set): logistic
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.6928571428571428
+Best Momentum Value (Highest Accuracy, Test Validation Set): 0.5
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.6857142857142857
+Best Learning Rate (Highest Accuracy, Test Validation Set): invscaling
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7857142857142857
+Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): (50, 50, 50)
+Best Params from GridSearchCV: {'activation': 'logistic', 'hidden_layer_sizes': (100,), 'learning_rate': 'adaptive', 'momentum': 1.0, 'solver': 'sgd'}
+2021-02-11 23:25:37.834577Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.6785714285714286
+Best Activation Type (Highest Accuracy, Test Validation Set): tanh
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7857142857142857
+Best Momentum Value (Highest Accuracy, Test Validation Set): 0.3
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.8571428571428571
+Best Learning Rate (Highest Accuracy, Test Validation Set): invscaling
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7142857142857143
+Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): (100,)
+Best Params from GridSearchCV: {'activation': 'logistic', 'hidden_layer_sizes': (100,), 'learning_rate': 'constant', 'momentum': 1.0, 'solver': 'sgd'}Final Accuracy Score (Test Set): 0.8928571428571429
+2021-02-11 23:44:55.431998Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7142857142857143
+Best Activation Type (Highest Accuracy, Test Validation Set): logistic
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.75
+Best Momentum Value (Highest Accuracy, Test Validation Set): 0.3
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.8214285714285714
+Best Learning Rate (Highest Accuracy, Test Validation Set): invscaling
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.8214285714285714
+Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): (100,)
+Best Params from GridSearchCV: {'activation': 'logistic', 'hidden_layer_sizes': (100,), 'learning_rate': 'adaptive', 'momentum': 1.0, 'solver': 'sgd'}Final Accuracy Score (Test Set): 0.8928571428571429
+2021-02-11 23:57:17.336768Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7785714285714286
+Best Activation Type (Highest Accuracy, Test Validation Set): logistic
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7071428571428572
+Best Momentum Value (Highest Accuracy, Test Validation Set): 0.1
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7571428571428571
+Best Learning Rate (Highest Accuracy, Test Validation Set): adaptive
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.8071428571428572
+Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): (100, 100, 100)
+Best Params from GridSearchCV: {'activation': 'logistic', 'hidden_layer_sizes': (50,), 'learning_rate': 'constant', 'momentum': 1.0, 'solver': 'sgd'}Final Accuracy Score (Test Set): 0.8357142857142857

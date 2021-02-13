@@ -37,8 +37,8 @@ def get_data():
     X_whole, y_whole = mnist_data['data'], mnist_data['target']
 
     # Take a subset of the data (10%)
-    X = X_whole[0::100]
-    y = y_whole[0::100]
+    X = X_whole[0::10]
+    y = y_whole[0::10]
 
     # Lets validate this data (we want to see that the 10% subset is still representative of the actual data)
     fig, ax = plt.subplots(2)
@@ -63,13 +63,16 @@ def test_DT(X_whole, y_whole, X, y):
     # Create a validation set - do another train/test split on the training data
     xtrain_val , xtest_val ,ytrain_val, ytest_val = train_test_split(X,y,test_size =0.2,random_state =42)
 
+    ########## Initial Learning Curves for Different Pruning Values ##########
+
+    # ccp_alpha = 0.0
     # Initial Fit
-    initial_classifier = DecisionTreeClassifier()
+    initial_classifier = DecisionTreeClassifier(ccp_alpha=0.0)
     initial_classifier.fit(xtrain_val, ytrain_val)
 
     fig, axes = plt.subplots(3, 1, figsize=(10, 15))
 
-    title = "Initial Learning Curves (Decision Trees)"
+    title = "Initial Learning Curves (Decision Trees - ccp_alpha=0.0)"
     # Cross validation with 100 iterations to get smoother mean test and train
     # score curves, each time with 20% data randomly selected as a validation set.
     cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
@@ -78,7 +81,97 @@ def test_DT(X_whole, y_whole, X, y):
     lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
 
 
-    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/DT/dt_learningcurve_initial.png')
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/DT/dt_learningcurve_initial_ccpa_0.png')
+
+    # ccp_alpha = 0.0002
+    # Initial Fit
+    initial_classifier = DecisionTreeClassifier(ccp_alpha=0.0002)
+    initial_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Initial Learning Curves (Decision Trees - ccp_alpha=0.0002)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = initial_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/DT/dt_learningcurve_initial_ccpa_0002.png')
+
+    # ccp_alpha = 0.0004
+    # Initial Fit
+    initial_classifier = DecisionTreeClassifier(ccp_alpha=0.0004)
+    initial_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Initial Learning Curves (Decision Trees - ccp_alpha=0.0004)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = initial_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/DT/dt_learningcurve_initial_ccpa_0004.png')
+
+    # ccp_alpha = 0.0006
+    # Initial Fit
+    initial_classifier = DecisionTreeClassifier(ccp_alpha=0.0006)
+    initial_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Initial Learning Curves (Decision Trees - ccp_alpha=0.0006)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = initial_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/DT/dt_learningcurve_initial_ccpa_0006.png')
+
+    # ccp_alpha = 0.0008
+    # Initial Fit
+    initial_classifier = DecisionTreeClassifier(ccp_alpha=0.0008)
+    initial_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Initial Learning Curves (Decision Trees - ccp_alpha=0.0008)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = initial_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/DT/dt_learningcurve_initial_ccpa_0008.png')
+
+    # ccp_alpha = 0.0010
+    # Initial Fit
+    initial_classifier = DecisionTreeClassifier(ccp_alpha=0.0010)
+    initial_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Initial Learning Curves (Decision Trees - ccp_alpha=0.0010)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = initial_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/DT/dt_learningcurve_initial_ccpa_0010.png')
 
     # Get a list of possible decision trees and their respective alphas
     flag = 0
@@ -255,13 +348,34 @@ def test_SVM(X_whole, y_whole, X, y):
     # Create a validation set - do another train/test split on the training data
     xtrain_val , xtest_val ,ytrain_val, ytest_val = train_test_split(X,y,test_size =0.2,random_state =42)
 
+    ########## Initial Learning Curves for Different Kernels ##########
+
+    # Kernel - linear
     # Initial Fit
-    initial_classifier = svm.SVC()
+    initial_classifier = svm.SVC(kernel='linear')
     initial_classifier.fit(xtrain_val, ytrain_val)
 
     fig, axes = plt.subplots(3, 1, figsize=(10, 15))
 
-    title = "Initial Learning Curves (SVM)"
+    title = "Initial Learning Curves (SVM - Linear Kernel)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = initial_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/SVM/svm_learningcurve_initial_linearkernel.png')
+    
+
+    # Kernel - poly
+    # Initial Fit
+    initial_classifier = svm.SVC(kernel='poly')
+    initial_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Initial Learning Curves (SVM - Poly Kernel)"
     # Cross validation with 100 iterations to get smoother mean test and train
     # score curves, each time with 20% data randomly selected as a validation set.
     cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
@@ -270,7 +384,43 @@ def test_SVM(X_whole, y_whole, X, y):
     lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
 
 
-    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/SVM/svm_learningcurve_initial.png')
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/SVM/svm_learningcurve_initial_polykernel.png')
+
+    # Kernel - rbf
+    # Initial Fit
+    initial_classifier = svm.SVC(kernel='rbf')
+    initial_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Initial Learning Curves (SVM - RBF Kernel)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = initial_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/SVM/svm_learningcurve_initial_rbfkernel.png')
+
+    # Kernel - sigmoid
+    # Initial Fit
+    initial_classifier = svm.SVC(kernel='sigmoid')
+    initial_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Initial Learning Curves (SVM - Sigmoid Kernel)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = initial_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/SVM/svm_learningcurve_initial_sigmoidkernel.png')
 
 
     # Get a list of possible neural nets and their respective kernel types
@@ -349,13 +499,16 @@ def test_KNN(X_whole, y_whole, X, y):
     # Create a validation set - do another train/test split on the training data
     xtrain_val , xtest_val ,ytrain_val, ytest_val = train_test_split(X,y,test_size =0.2,random_state =42)
 
+    ########## Initial Learning Curves for Different Neighbor Sizes ##########
+
+    # 2 neighbors
     # Initial Fit
-    initial_classifier = KNeighborsClassifier()
+    initial_classifier = KNeighborsClassifier(n_neighbors=2)
     initial_classifier.fit(xtrain_val, ytrain_val)
 
     fig, axes = plt.subplots(3, 1, figsize=(10, 15))
 
-    title = "Initial Learning Curves (KNN)"
+    title = "Initial Learning Curves (KNN - 2 neighbors)"
     # Cross validation with 100 iterations to get smoother mean test and train
     # score curves, each time with 20% data randomly selected as a validation set.
     cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
@@ -364,7 +517,79 @@ def test_KNN(X_whole, y_whole, X, y):
     lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
 
 
-    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/KNN/knn_learningcurve_initial.png')
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/KNN/knn_learningcurve_initial_2neigh.png')
+
+    # 4 neighbors
+    # Initial Fit
+    initial_classifier = KNeighborsClassifier(n_neighbors=4)
+    initial_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Initial Learning Curves (KNN - 4 neighbors)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = initial_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/KNN/knn_learningcurve_initial_4neigh.png')
+
+    # 6 neighbors
+    # Initial Fit
+    initial_classifier = KNeighborsClassifier(n_neighbors=6)
+    initial_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Initial Learning Curves (KNN - 6 neighbors)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = initial_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/KNN/knn_learningcurve_initial_6neigh.png')
+
+    # 8 neighbors
+    # Initial Fit
+    initial_classifier = KNeighborsClassifier(n_neighbors=8)
+    initial_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Initial Learning Curves (KNN - 8 neighbors)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = initial_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/KNN/knn_learningcurve_initial_8neigh.png')
+
+    # 10 neighbors
+    # Initial Fit
+    initial_classifier = KNeighborsClassifier(n_neighbors=10)
+    initial_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Initial Learning Curves (KNN - 10 neighbors)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = initial_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/KNN/knn_learningcurve_initial_10neigh.png')
 
     # Get a list of possible knn's and their respective neighbor_types
     flag = 0
@@ -429,7 +654,7 @@ def test_KNN(X_whole, y_whole, X, y):
 
     fig, axes = plt.subplots(3, 1, figsize=(10, 15))
 
-    title = "Learning Curves (Neural Nets)"
+    title = "Learning Curves (KNN)"
     # Cross validation with 100 iterations to get smoother mean test and train
     # score curves, each time with 20% data randomly selected as a validation set.
     cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
@@ -460,13 +685,16 @@ def test_Boosting(X_whole, y_whole, X, y):
     # Create a validation set - do another train/test split on the training data
     xtrain_val , xtest_val ,ytrain_val, ytest_val = train_test_split(X,y,test_size =0.2,random_state =42)
 
+    ########## Initial Learning Curves for Different Pruning Types ##########
+
+    # ccp_alpha = 0.0
     # Initial Fit
-    initial_classifier = AdaBoostClassifier()
+    initial_classifier = AdaBoostClassifier(base_estimator=DecisionTreeClassifier(ccp_alpha=0.0))
     initial_classifier.fit(xtrain_val, ytrain_val)
 
     fig, axes = plt.subplots(3, 1, figsize=(10, 15))
 
-    title = "Initial Learning Curves (Adaboost)"
+    title = "Initial Learning Curves (Adaboost - ccp_alpha=0.0)"
     # Cross validation with 100 iterations to get smoother mean test and train
     # score curves, each time with 20% data randomly selected as a validation set.
     cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
@@ -475,7 +703,79 @@ def test_Boosting(X_whole, y_whole, X, y):
     lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
 
 
-    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/Boosting/boosting_learningcurve_initial.png')
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/Boosting/boosting_learningcurve_initial_ccpa_0.png')
+
+    # ccp_alpha = 0.0002
+    # Initial Fit
+    initial_classifier = AdaBoostClassifier(base_estimator=DecisionTreeClassifier(ccp_alpha=0.0002))
+    initial_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Initial Learning Curves (Adaboost - ccp_alpha=0.0002)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = initial_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/Boosting/boosting_learningcurve_initial_ccpa_0002.png')
+
+    # ccp_alpha = 0.0004
+    # Initial Fit
+    initial_classifier = AdaBoostClassifier(base_estimator=DecisionTreeClassifier(ccp_alpha=0.0004))
+    initial_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Initial Learning Curves (Adaboost - ccp_alpha=0.0004)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = initial_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/Boosting/boosting_learningcurve_initial_ccpa_0004.png')
+
+    # ccp_alpha = 0.0008
+    # Initial Fit
+    initial_classifier = AdaBoostClassifier(base_estimator=DecisionTreeClassifier(ccp_alpha=0.0008))
+    initial_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Initial Learning Curves (Adaboost - ccp_alpha=0.0008)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = initial_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/Boosting/boosting_learningcurve_initial_ccpa_0008.png')
+
+    # ccp_alpha = 0.0010
+    # Initial Fit
+    initial_classifier = AdaBoostClassifier(base_estimator=DecisionTreeClassifier(ccp_alpha=0.0010))
+    initial_classifier.fit(xtrain_val, ytrain_val)
+
+    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+
+    title = "Initial Learning Curves (Adaboost - ccp_alpha=0.0010)"
+    # Cross validation with 100 iterations to get smoother mean test and train
+    # score curves, each time with 20% data randomly selected as a validation set.
+    cv = ShuffleSplit(n_splits=100, test_size=0.2, random_state=0)
+
+    estimator = initial_classifier
+    lc = plot_learning_curve(estimator, title, xtrain_val, ytrain_val, cv=cv, n_jobs=-1)
+
+
+    lc.savefig('/Users/ajinkya.bagde/Desktop/AS1_Figs/Boosting/boosting_learningcurve_initial_ccpa_0010.png')
 
     # Get a list of possible boostings and their respective alphas
     flag = 0
@@ -534,8 +834,8 @@ def test_Boosting(X_whole, y_whole, X, y):
 
 if __name__ == "__main__":  		 
     X_whole, y_whole, X, y = get_data() 	   		     		  		  		    	 		 		   		 		  
-    #test_DT(X_whole, y_whole, X, y)  
-    test_NN(X_whole, y_whole, X, y)	
+    test_DT(X_whole, y_whole, X, y)  
+    #test_NN(X_whole, y_whole, X, y)	
     #test_SVM(X_whole, y_whole, X, y)
     #test_KNN(X_whole, y_whole, X, y)
     #test_Boosting(X_whole, y_whole, X, y)
