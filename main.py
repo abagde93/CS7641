@@ -834,10 +834,10 @@ def test_Boosting(X_whole, y_whole, X, y):
 
 if __name__ == "__main__":  		 
     X_whole, y_whole, X, y = get_data() 	   		     		  		  		    	 		 		   		 		  
-    test_DT(X_whole, y_whole, X, y)  
-    #test_NN(X_whole, y_whole, X, y)	
+    #test_DT(X_whole, y_whole, X, y)  
+    test_NN(X_whole, y_whole, X, y)	
     #test_SVM(X_whole, y_whole, X, y)
-    #test_KNN(X_whole, y_whole, X, y)
+    test_KNN(X_whole, y_whole, X, y)
     #test_Boosting(X_whole, y_whole, X, y)
 
 
