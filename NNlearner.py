@@ -28,7 +28,7 @@ class NNLearner(object):
         self.accuracy_score = 0.0
         self.verbose = verbose
 
-        self.param_dict = {"activation": ['identity', 'logistic', 'tanh', 'relu'], "momentum": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0], "learning_rate": ['constant', 'invscaling', 'adaptive'], "hidden_layer_sizes": [(20,),(50,),(70,),(100,),(50, 50),(50, 100),(100, 50), (100, 100), (200, 200), (300,300), (100,100,100), (200,200,200), (300,300,300)], "solver": ['sgd']}
+        self.param_dict = {"activation": ['identity', 'logistic', 'tanh', 'relu'], "momentum": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0], "learning_rate": ['constant', 'invscaling', 'adaptive'], "hidden_layer_sizes": [(50,),(100,),(200,),(50, 50),(100, 100), (200, 200), (50,50,50), (100,100,100), (200,200,200)], "solver": ['sgd']}
         self.grid = 0
 
         # Write data to file for easy analysis
@@ -86,7 +86,7 @@ class NNLearner(object):
 
         if flag == 3:
 
-            hidden_layer_sizes_types = [(20,),(50,),(70,),(100,),(50, 50),(50, 100),(100, 50), (100, 100), (200, 200), (300,300), (100,100,100), (200,200,200), (300,300,300)]
+            hidden_layer_sizes_types = [(50,),(100,),(200,),(50, 50),(100, 100), (200, 200), (50,50,50), (100,100,100), (200,200,200)]
             #hidden_layer_sizes_types_for_plot = ["(10,)","(100,)","(10,50,10)","(20,20,20)"]
 
             clfs = []
@@ -216,7 +216,7 @@ class NNLearner(object):
             self.f.write("Best Accuracy Score (Test Validation Set): " + str(max(self.accuracy_score_test)) + "\n")
             self.f.write("Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): " + str(hidden_layer_sizes_types[self.accuracy_score_test.index(max(self.accuracy_score_test))]) + "\n")
 
-            plt.figure()
+            plt.figure(figsize=(11,6))
             hl_plot_array = []
             for item in hidden_layer_sizes_types:
                 hl_plot_array.append(str(item))

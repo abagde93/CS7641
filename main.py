@@ -37,8 +37,8 @@ def get_data():
     X_whole, y_whole = mnist_data['data'], mnist_data['target']
 
     # Take a subset of the data (10%)
-    X = X_whole[0::10]
-    y = y_whole[0::10]
+    X = X_whole[0::20]
+    y = y_whole[0::20]
 
     # Lets validate this data (we want to see that the 10% subset is still representative of the actual data)
     fig, ax = plt.subplots(2)
@@ -834,11 +834,11 @@ def test_Boosting(X_whole, y_whole, X, y):
 
 if __name__ == "__main__":  		 
     X_whole, y_whole, X, y = get_data() 	   		     		  		  		    	 		 		   		 		  
-    #test_DT(X_whole, y_whole, X, y)  
+    test_DT(X_whole, y_whole, X, y)  
     test_NN(X_whole, y_whole, X, y)	
-    #test_SVM(X_whole, y_whole, X, y)
+    test_SVM(X_whole, y_whole, X, y)
     test_KNN(X_whole, y_whole, X, y)
-    #test_Boosting(X_whole, y_whole, X, y)
+    test_Boosting(X_whole, y_whole, X, y)
 
 
     

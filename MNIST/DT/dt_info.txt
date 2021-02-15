@@ -1,0 +1,15 @@
+
+2021-02-13 12:23:43.636141Training Decision Tree Model...Best Accuracy Score (Test Validation Set): 0.7628571428571429
+Best Alpha (Highest Accuracy, Test Validation Set): 0.000326530612244898
+
+2021-02-13 12:39:58.334475Training Decision Tree Model...Best Accuracy Score (Test Validation Set): 0.7628571428571429
+Best Alpha (Highest Accuracy, Test Validation Set): 0.000326530612244898
+Training Decision Tree Model...Best Accuracy Score (Test Validation Set): 0.77
+Best Depth (Highest Accuracy, Test Validation Set): 11
+Training Decision Tree Model...Best Accuracy Score (Test Validation Set): 0.7692857142857142
+Best min_sample_leaf (Highest Accuracy, Test Validation Set): 3
+Training Decision Tree Model...Best Accuracy Score (Test Validation Set): 0.7571428571428571
+Best min_sample_split (Highest Accuracy, Test Validation Set): 4
+Best Params from GridSearchCV: {'ccp_alpha': 0.001, 'criterion': 'gini', 'max_depth': 13, 'min_samples_leaf': 1, 'min_samples_split': 4}Final Accuracy Score (Test Set): 0.7485714285714286
+
+2:57:46.337752

@@ -1,0 +1,10 @@
+
+2021-02-15 06:26:51.611995Training Boosting Model...Best Accuracy Score (Test Validation Set): 0.8842857142857142
+Best Alpha (Highest Accuracy, Test Validation Set): DecisionTreeClassifier(ccp_alpha=0.0006)
+Training Boosting Model...Best Accuracy Score (Test Validation Set): 0.6014285714285714
+Best Estimators Value (Highest Accuracy, Test Validation Set): 20
+Training Boosting Model...Best Accuracy Score (Test Validation Set): 0.7028571428571428
+Best Learning Rate (Highest Accuracy, Test Validation Set): 0.3
+Best Params from GridSearchCV: {'base_estimator': DecisionTreeClassifier(ccp_alpha=0.0006), 'learning_rate': 0.8, 'n_estimators': 200}Final Accuracy Score (Test Set): 0.9028571428571428
+
+3:31:01.960140

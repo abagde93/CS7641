@@ -1,0 +1,12 @@
+
+2021-02-13 12:21:34.879143Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.8892857142857142
+Best Activation Type (Highest Accuracy, Test Validation Set): tanh
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.8485714285714285
+Best Momentum Value (Highest Accuracy, Test Validation Set): 0.6
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.8428571428571429
+Best Learning Rate (Highest Accuracy, Test Validation Set): adaptive
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.875
+Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): (50, 50, 50)
+Best Params from GridSearchCV: {'activation': 'tanh', 'hidden_layer_sizes': (50, 100), 'learning_rate': 'constant', 'momentum': 0.9, 'solver': 'sgd'}Final Accuracy Score (Test Set): 0.8792857142857143
+
+3:35:37.581393

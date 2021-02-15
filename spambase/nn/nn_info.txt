@@ -1,0 +1,12 @@
+
+2021-02-14 16:57:39.756732Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7785016286644951
+Best Activation Type (Highest Accuracy, Test Validation Set): identity
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7882736156351792
+Best Momentum Value (Highest Accuracy, Test Validation Set): 0.4
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7361563517915309
+Best Learning Rate (Highest Accuracy, Test Validation Set): constant
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.739413680781759
+Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): (200, 200, 200)
+Best Params from GridSearchCV: {'activation': 'identity', 'hidden_layer_sizes': (200,), 'learning_rate': 'adaptive', 'momentum': 0.8, 'solver': 'sgd'}Final Accuracy Score (Test Set): 0.7687296416938111
+
+0:42:38.235438
