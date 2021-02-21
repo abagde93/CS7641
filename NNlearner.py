@@ -4,12 +4,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.model_selection import GridSearchCV, train_test_split # Import train_test_split function
 from sklearn import metrics #Import scikit-learn metrics module for accuracy calculation
-from sklearn.tree import export_graphviz
-from six import StringIO  
-from IPython.display import display
-from IPython.display import Image  
-import pydotplus
-import graphviz
 from sklearn import tree
 
 
