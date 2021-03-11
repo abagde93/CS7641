@@ -27,145 +27,135 @@ def nn():
     # Split the initial data
     xtrain, xtest, ytrain, ytest = train_test_split(x, y, test_size=0.4, random_state=42)
     
-    # ### Analysis for RHC ###
-    # train_accuracy_scores = []
-    # test_accuracy_scores = []
-    # time_per_iteration_rhc = []
+    ### Analysis for RHC ###
+    train_accuracy_scores = []
+    test_accuracy_scores = []
+    time_per_iteration_rhc = []
 
-    # for i in range(100,1000,50):
-    #     print(i)
-    #     rhc_nn = mlrose_hiive.NeuralNetwork(hidden_nodes = [2], activation ='identity', 
-    #                                  algorithm ='random_hill_climb', 
-    #                                  bias = False, is_classifier = True, 
-    #                                  learning_rate = 0.6, clip_max = 1,
-    #                                  max_attempts = 1000, max_iters = i)
+    for i in range(1000,50000,500):
+        print(i)
+        rhc_nn = mlrose_hiive.NeuralNetwork(hidden_nodes = [2], activation ='identity', 
+                                     algorithm ='random_hill_climb', 
+                                     bias = False, is_classifier = True, 
+                                     learning_rate = 0.6, clip_max = 1,
+                                     max_attempts = 1000, max_iters = i)
 
-    #     start = time.time()
-    #     rhc_nn.fit(xtrain, ytrain)
+        start = time.time()
+        rhc_nn.fit(xtrain, ytrain)
         
         
-    #     # Train set analysis
-    #     predictions_train = rhc_nn.predict(xtrain)
-    #     accuracy_score_train = accuracy_score(ytrain, predictions_train)
-    #     train_accuracy_scores.append(accuracy_score_train)
+        # Train set analysis
+        predictions_train = rhc_nn.predict(xtrain)
+        accuracy_score_train = accuracy_score(ytrain, predictions_train)
+        train_accuracy_scores.append(accuracy_score_train)
 
-    #     # Test set analysis
-    #     predictions_test = rhc_nn.predict(xtest)
-    #     accuracy_score_test = accuracy_score(ytest, predictions_test)
-    #     test_accuracy_scores.append(accuracy_score_test)
+        # Test set analysis
+        predictions_test = rhc_nn.predict(xtest)
+        accuracy_score_test = accuracy_score(ytest, predictions_test)
+        test_accuracy_scores.append(accuracy_score_test)
 
-    #     time_per_iteration_rhc.append(time.time() - start)
+        time_per_iteration_rhc.append(time.time() - start)
 
-    # plt.figure()
-    # plt.plot(np.arange(100,1000,50),np.array(train_accuracy_scores),label='Train Accuracy')
-    # plt.plot(np.arange(100,1000,50),np.array(test_accuracy_scores),label='Test Accuracy')
-    # plt.xlabel('Iterations')
-    # plt.ylabel('Accuracy')
-    # plt.title('Accuracy vs. Iterations (RHC)')
-    # plt.legend()
-    # plt.savefig('testacc_iter_rhc.png')
+    plt.figure()
+    plt.plot(np.arange(1000,50000,500),np.array(train_accuracy_scores),label='Train Accuracy')
+    plt.plot(np.arange(1000,50000,500),np.array(test_accuracy_scores),label='Test Accuracy')
+    plt.xlabel('Iterations')
+    plt.ylabel('Accuracy')
+    plt.title('Accuracy vs. Iterations (RHC)')
+    plt.legend()
+    plt.savefig('testacc_iter_rhc.png')
 
-    # print("Finished RHC")
+    print("Finished RHC")
 
-    # ### Analysis for Simulated Annealing ###
-    # train_accuracy_scores = []
-    # test_accuracy_scores = []
-    # time_per_iteration_sa = []
+    ### Analysis for Simulated Annealing ###
+    train_accuracy_scores = []
+    test_accuracy_scores = []
+    time_per_iteration_sa = []
 
-    # for i in range(100,1000,50):
-    #     print(i)
-    #     sa_nn = mlrose_hiive.NeuralNetwork(hidden_nodes=[2], activation='identity',
-    #                             algorithm='simulated_annealing',
-    #                             bias=False, is_classifier=True,
-    #                             learning_rate = 0.6, clip_max=1,
-    #                             max_attempts=1000, max_iters = i)
+    for i in range(1000,50000,500):
+        print(i)
+        sa_nn = mlrose_hiive.NeuralNetwork(hidden_nodes=[2], activation='identity',
+                                algorithm='simulated_annealing',
+                                bias=False, is_classifier=True,
+                                learning_rate = 0.6, clip_max=1,
+                                max_attempts=1000, max_iters = i)
 
-    #     start = time.time()
-    #     sa_nn.fit(xtrain, ytrain)
+        start = time.time()
+        sa_nn.fit(xtrain, ytrain)
         
         
-    #     # Train set analysis
-    #     predictions_train = sa_nn.predict(xtrain)
-    #     accuracy_score_train = accuracy_score(ytrain, predictions_train)
-    #     train_accuracy_scores.append(accuracy_score_train)
+        # Train set analysis
+        predictions_train = sa_nn.predict(xtrain)
+        accuracy_score_train = accuracy_score(ytrain, predictions_train)
+        train_accuracy_scores.append(accuracy_score_train)
 
-    #     # Test set analysis
-    #     predictions_test = sa_nn.predict(xtest)
-    #     accuracy_score_test = accuracy_score(ytest, predictions_test)
-    #     test_accuracy_scores.append(accuracy_score_test)
+        # Test set analysis
+        predictions_test = sa_nn.predict(xtest)
+        accuracy_score_test = accuracy_score(ytest, predictions_test)
+        test_accuracy_scores.append(accuracy_score_test)
 
-    #     time_per_iteration_sa.append(time.time() - start)
+        time_per_iteration_sa.append(time.time() - start)
 
-    # plt.figure()
-    # plt.plot(np.arange(100,1000,50),np.array(train_accuracy_scores),label='Train Accuracy')
-    # plt.plot(np.arange(100,1000,50),np.array(test_accuracy_scores),label='Test Accuracy')
-    # plt.xlabel('Iterations')
-    # plt.ylabel('Accuracy')
-    # plt.title('Accuracy vs. Iterations (SA)')
-    # plt.legend()
-    # plt.savefig('testacc_iter_SA.png')
+    plt.figure()
+    plt.plot(np.arange(1000,50000,500),np.array(train_accuracy_scores),label='Train Accuracy')
+    plt.plot(np.arange(1000,50000,500),np.array(test_accuracy_scores),label='Test Accuracy')
+    plt.xlabel('Iterations')
+    plt.ylabel('Accuracy')
+    plt.title('Accuracy vs. Iterations (SA)')
+    plt.legend()
+    plt.savefig('testacc_iter_SA.png')
 
-    # print("Finished SA")
+    print("Finished SA")
 
-    # ### Analysis for Genetic Algorithms ###
-    # train_accuracy_scores = []
-    # test_accuracy_scores = []
-    # time_per_iteration_ga = []
+    ### Analysis for Genetic Algorithms ###
+    train_accuracy_scores = []
+    test_accuracy_scores = []
+    time_per_iteration_ga = []
 
-    # for i in range(100,1000,50):
-    #     print(i)
-    #     ga_nn = mlrose_hiive.NeuralNetwork(hidden_nodes=[2], activation='identity',
-    #                             algorithm='genetic_alg',
-    #                             bias=False, is_classifier=True,
-    #                             learning_rate = 0.6, clip_max=1,
-    #                             max_attempts=1000, max_iters = i)
+    for i in range(1000,50000,500):
+        print(i)
+        ga_nn = mlrose_hiive.NeuralNetwork(hidden_nodes=[2], activation='identity',
+                                algorithm='genetic_alg',
+                                bias=False, is_classifier=True,
+                                learning_rate = 0.6, clip_max=1,
+                                max_attempts=1000, max_iters = i)
 
-    #     start = time.time()
-    #     ga_nn.fit(xtrain, ytrain)
+        start = time.time()
+        ga_nn.fit(xtrain, ytrain)
         
         
-    #     # Train set analysis
-    #     predictions_train = ga_nn.predict(xtrain)
-    #     accuracy_score_train = accuracy_score(ytrain, predictions_train)
-    #     train_accuracy_scores.append(accuracy_score_train)
+        # Train set analysis
+        predictions_train = ga_nn.predict(xtrain)
+        accuracy_score_train = accuracy_score(ytrain, predictions_train)
+        train_accuracy_scores.append(accuracy_score_train)
 
-    #     # Test set analysis
-    #     predictions_test = ga_nn.predict(xtest)
-    #     accuracy_score_test = accuracy_score(ytest, predictions_test)
-    #     test_accuracy_scores.append(accuracy_score_test)
+        # Test set analysis
+        predictions_test = ga_nn.predict(xtest)
+        accuracy_score_test = accuracy_score(ytest, predictions_test)
+        test_accuracy_scores.append(accuracy_score_test)
 
-    #     time_per_iteration_ga.append(time.time() - start)
+        time_per_iteration_ga.append(time.time() - start)
 
-    # plt.figure()
-    # plt.plot(np.arange(100,1000,50),np.array(train_accuracy_scores),label='Train Accuracy')
-    # plt.plot(np.arange(100,1000,50),np.array(test_accuracy_scores),label='Test Accuracy')
-    # plt.xlabel('Iterations')
-    # plt.ylabel('Accuracy')
-    # plt.title('Accuracy vs. Iterations (GA)')
-    # plt.legend()
-    # plt.savefig('testacc_iter_GA.png')
+    plt.figure()
+    plt.plot(np.arange(1000,50000,500),np.array(train_accuracy_scores),label='Train Accuracy')
+    plt.plot(np.arange(1000,50000,500),np.array(test_accuracy_scores),label='Test Accuracy')
+    plt.xlabel('Iterations')
+    plt.ylabel('Accuracy')
+    plt.title('Accuracy vs. Iterations (GA)')
+    plt.legend()
+    plt.savefig('testacc_iter_GA.png')
 
-    # print("Finished GA")
+    print("Finished GA")
 
-    # ### Plot runtimes for above ###
-    # plt.figure()
-    # plt.plot(np.arange(100,1000,50),np.array(time_per_iteration_rhc),label='RHC')
-    # plt.plot(np.arange(100,1000,50),np.array(time_per_iteration_sa),label='SA')
-    # plt.plot(np.arange(100,1000,50),np.array(time_per_iteration_ga),label='GA')
-    # plt.xlabel('Iterations')
-    # plt.ylabel('Training Time')
-    # plt.title('Training Time vs Iterations')
-    # plt.legend()
-    # plt.savefig('time_vs_iter.png')
 
     ### Backpropogation (for comparison) ###
     train_accuracy_scores = []
     test_accuracy_scores = []
     time_per_iteration_bp = []
 
-    for i in range(100,5000,50):
+    for i in range(1000,50000,500):
         print(i)
-        bp_nn = mlrose_hiive.NeuralNetwork(hidden_nodes=[2], activation='sigmoid',
+        bp_nn = mlrose_hiive.NeuralNetwork(hidden_nodes=[2], activation='identity',
                                 algorithm='gradient_descent',
                                 bias=False, is_classifier=True,
                                 learning_rate = 0.6, clip_max=1,
@@ -188,8 +178,8 @@ def nn():
         time_per_iteration_bp.append(time.time() - start)
 
     plt.figure()
-    plt.plot(np.arange(100,5000,50),np.array(train_accuracy_scores),label='Train Accuracy')
-    plt.plot(np.arange(100,5000,50),np.array(test_accuracy_scores),label='Test Accuracy')
+    plt.plot(np.arange(1000,50000,500),np.array(train_accuracy_scores),label='Train Accuracy')
+    plt.plot(np.arange(1000,50000,500),np.array(test_accuracy_scores),label='Test Accuracy')
     plt.xlabel('Iterations')
     plt.ylabel('Accuracy')
     plt.title('Accuracy vs. Iterations (Backpropogation)')
@@ -197,6 +187,174 @@ def nn():
     plt.savefig('testacc_iter_bp.png')
 
     print("Finished Backprop")
+
+    ### Plot runtimes for above ###
+    plt.figure()
+    plt.plot(np.arange(1000,50000,500),np.array(time_per_iteration_rhc),label='RHC')
+    plt.plot(np.arange(1000,50000,500),np.array(time_per_iteration_sa),label='SA')
+    plt.plot(np.arange(1000,50000,500),np.array(time_per_iteration_ga),label='GA')
+    plt.plot(np.arange(1000,50000,500),np.array(time_per_iteration_ga),label='BP')
+    plt.xlabel('Iterations')
+    plt.ylabel('Training Time')
+    plt.title('Training Time vs Iterations')
+    plt.legend()
+    plt.savefig('time_vs_iter.png')
+
+    #### Hyperparameter Tuning - RHC ####
+    ## Adjusting the number of random restarts ##
+    train_accuracy_scores = []
+    test_accuracy_scores = []
+
+    for i in range(0,500,25):
+        print(i)
+        rhc_nn = mlrose_hiive.NeuralNetwork(hidden_nodes = [2], activation ='identity', 
+                                     algorithm ='random_hill_climb', 
+                                     bias = False, is_classifier = True, 
+                                     learning_rate = 0.6, clip_max = 1,
+                                     max_attempts = 1000, restarts = i)
+
+        rhc_nn.fit(xtrain, ytrain)
+        
+        
+        # Train set analysis
+        predictions_train = rhc_nn.predict(xtrain)
+        accuracy_score_train = accuracy_score(ytrain, predictions_train)
+        train_accuracy_scores.append(accuracy_score_train)
+
+        # Test set analysis
+        predictions_test = rhc_nn.predict(xtest)
+        accuracy_score_test = accuracy_score(ytest, predictions_test)
+        test_accuracy_scores.append(accuracy_score_test)
+
+    plt.figure()
+    plt.plot(np.arange(0,500,25),np.array(train_accuracy_scores),label='Train Accuracy')
+    plt.plot(np.arange(0,500,25),np.array(test_accuracy_scores),label='Test Accuracy')
+    plt.xlabel('Restarts')
+    plt.ylabel('Accuracy')
+    plt.title('Accuracy vs. Number of Restarts (RHC)')
+    plt.legend()
+    plt.savefig('rhc_restarts.png')
+
+    print("Finished RHC HP Tuning")
+
+    #### Hyperparameter Tuning - SA ####
+    ## Adjusting the type of scheduling ##
+    train_accuracy_scores = []
+    test_accuracy_scores = []
+
+    # Referending sectiion 2.2 'Decay Schedules' here:
+    # https://readthedocs.org/projects/mlrose/downloads/pdf/stable/
+
+    schedule_types = [mlrose_hiive.ExpDecay(), mlrose_hiive.ArithDecay(), mlrose_hiive.GeomDecay()]
+
+    for st in schedule_types:
+        print(st)
+        sa_nn = mlrose_hiive.NeuralNetwork(hidden_nodes=[2], activation='identity',
+                                algorithm='simulated_annealing',
+                                bias=False, is_classifier=True,
+                                learning_rate = 0.6, clip_max=1,
+                                max_attempts=1000, schedule = st)
+
+        sa_nn.fit(xtrain, ytrain)
+        
+        # Train set analysis
+        predictions_train = sa_nn.predict(xtrain)
+        accuracy_score_train = accuracy_score(ytrain, predictions_train)
+        train_accuracy_scores.append(accuracy_score_train)
+
+        # Test set analysis
+        predictions_test = sa_nn.predict(xtest)
+        accuracy_score_test = accuracy_score(ytest, predictions_test)
+        test_accuracy_scores.append(accuracy_score_test)
+
+    plt.figure()
+    plt.plot(['ExpDecay','ArithDecay','GeomDecay'],np.array(train_accuracy_scores),label='Train Accuracy')
+    plt.plot(['ExpDecay','ArithDecay','GeomDecay'],np.array(test_accuracy_scores),label='Test Accuracy')
+    plt.xlabel('Schedule Type')
+    plt.ylabel('Accuracy')
+    plt.title('Accuracy vs. Schedule Type (SA)')
+    plt.legend()
+    plt.savefig('sa_schedule_type.png')
+
+    print("Finished SA HP Tuning")
+
+    #### Hyperparameter Tuning - GA ####
+
+    ## Adjusting the amount of mutation
+    ## Used api as referenced in https://readthedocs.org/projects/mlrose/downloads/pdf/stable/
+    train_accuracy_scores = []
+    test_accuracy_scores = []
+
+    mutation_prob_array = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0]
+    for i in mutation_prob_array:
+        ga_nn = mlrose_hiive.NeuralNetwork(hidden_nodes=[2], activation='relu',
+                                algorithm='genetic_alg',
+                                bias=False, is_classifier=True,
+                                learning_rate = 0.6, clip_max=1,
+                                max_attempts=1000, mutation_prob = i)
+
+        ga_nn.fit(xtrain, ytrain)
+        
+        # Train set analysis
+        predictions_train = ga_nn.predict(xtrain)
+        accuracy_score_train = accuracy_score(ytrain, predictions_train)
+        train_accuracy_scores.append(accuracy_score_train)
+
+        # Test set analysis
+        predictions_test = ga_nn.predict(xtest)
+        accuracy_score_test = accuracy_score(ytest, predictions_test)
+        test_accuracy_scores.append(accuracy_score_test)
+
+
+    plt.figure()
+    plt.plot(mutation_prob_array,np.array(train_accuracy_scores),label='Train Accuracy')
+    plt.plot(mutation_prob_array,np.array(test_accuracy_scores),label='Test Accuracy')
+    plt.xlabel('mutation_prob')
+    plt.ylabel('Accuracy')
+    plt.title('Accuracy vs. Iterations (GA - mutation_prob experimentation)')
+    plt.legend()
+    plt.savefig('ga_mutation.png')
+
+    print("Finished GA mutation experimentation")
+
+    ## Adjusting the population size
+    ## Used api as referenced in https://readthedocs.org/projects/mlrose/downloads/pdf/stable/
+    train_accuracy_scores = []
+    test_accuracy_scores = []
+
+    pop_size_array = [100,200,300,400,500]
+    for i in pop_size_array:
+        ga_nn = mlrose_hiive.NeuralNetwork(hidden_nodes=[2], activation='relu',
+                                algorithm='genetic_alg',
+                                bias=False, is_classifier=True,
+                                learning_rate = 0.6, clip_max=1,
+                                max_attempts=1000, pop_size = i)
+
+        ga_nn.fit(xtrain, ytrain)
+        
+        # Train set analysis
+        predictions_train = ga_nn.predict(xtrain)
+        accuracy_score_train = accuracy_score(ytrain, predictions_train)
+        train_accuracy_scores.append(accuracy_score_train)
+
+        # Test set analysis
+        predictions_test = ga_nn.predict(xtest)
+        accuracy_score_test = accuracy_score(ytest, predictions_test)
+        test_accuracy_scores.append(accuracy_score_test)
+
+
+    plt.figure()
+    plt.plot(pop_size_array,np.array(train_accuracy_scores),label='Train Accuracy')
+    plt.plot(pop_size_array,np.array(test_accuracy_scores),label='Test Accuracy')
+    plt.xlabel('pop_size')
+    plt.ylabel('Accuracy')
+    plt.title('Accuracy vs. Iterations (GA - pop_size experimentation)')
+    plt.legend()
+    plt.savefig('ga_popsize.png')
+
+    print("Finished GA pop_size experimentation")
+
+
 
 
 
