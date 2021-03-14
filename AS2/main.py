@@ -8,7 +8,7 @@ import queens, peaks, tsp, flipflop
 
 def main():
     queens.queens()
-    #peaks.peaks()
-    #tsp.tsp()
+    peaks.peaks()
+    tsp.tsp()
 if __name__ == "__main__":
     main()
