@@ -1,0 +1,128 @@
+
+2021-03-27 17:48:56.035302
+2021-03-27 17:50:37.768401Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7937024972855592
+Best Activation Type (Highest Accuracy, Test Validation Set): tanh
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7947882736156352
+Best Momentum Value (Highest Accuracy, Test Validation Set): 0.1
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7980456026058632
+Best Learning Rate (Highest Accuracy, Test Validation Set): adaptive
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7220412595005429
+Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): (100, 100, 100)
+
+2021-03-27 18:42:52.190851Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.8045602605863192
+Best Activation Type (Highest Accuracy, Test Validation Set): logistic
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7654723127035831
+Best Momentum Value (Highest Accuracy, Test Validation Set): 0.2
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.8469055374592834
+Best Learning Rate (Highest Accuracy, Test Validation Set): adaptive
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.750271444082519
+Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): (200, 200, 200)
+Best Params from GridSearchCV: {'activation': 'identity', 'hidden_layer_sizes': (200,), 'learning_rate': 'adaptive', 'momentum': 0.9, 'solver': 'sgd'}Final Accuracy Score (Test Set): 0.8686210640608035
+2021-03-27 19:23:55.174280Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7980456026058632
+Best Activation Type (Highest Accuracy, Test Validation Set): logistic
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7643865363735071
+Best Momentum Value (Highest Accuracy, Test Validation Set): 0.2
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7296416938110749
+Best Learning Rate (Highest Accuracy, Test Validation Set): adaptive
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7296416938110749
+Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): (100,)
+Best Params from GridSearchCV: {'activation': 'identity', 'hidden_layer_sizes': (200,), 'learning_rate': 'adaptive', 'momentum': 0.9, 'solver': 'sgd'}Final Accuracy Score (Test Set): 0.8490770901194354
+2021-03-27 20:04:50.260620Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7806731813246471
+Best Activation Type (Highest Accuracy, Test Validation Set): logistic
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7893593919652552
+Best Momentum Value (Highest Accuracy, Test Validation Set): 0.5
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.743756786102063
+Best Learning Rate (Highest Accuracy, Test Validation Set): adaptive
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7350705754614549
+Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): (100, 100)
+Best Params from GridSearchCV: {'activation': 'identity', 'hidden_layer_sizes': (100,), 'learning_rate': 'adaptive', 'momentum': 0.9, 'solver': 'sgd'}Final Accuracy Score (Test Set): 0.8555917480998915
+2021-03-27 20:44:04.522794Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.8121606948968513
+Best Activation Type (Highest Accuracy, Test Validation Set): logistic
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7893593919652552
+Best Momentum Value (Highest Accuracy, Test Validation Set): 0.5
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7166123778501629
+Best Learning Rate (Highest Accuracy, Test Validation Set): constant
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.744842562432139
+Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): (200, 200)
+Best Params from GridSearchCV: {'activation': 'identity', 'hidden_layer_sizes': (200, 200), 'learning_rate': 'adaptive', 'momentum': 0.9, 'solver': 'sgd'}Final Accuracy Score (Test Set): 0.8773072747014115
+2021-03-28 21:46:31.804811Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7446808510638298
+Best Activation Type (Highest Accuracy, Test Validation Set): tanh
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7021276595744681
+Best Momentum Value (Highest Accuracy, Test Validation Set): 0.9
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.5106382978723404
+Best Learning Rate (Highest Accuracy, Test Validation Set): adaptive
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7872340425531915
+Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): (50,)
+Best Params from GridSearchCV: {'activation': 'logistic', 'hidden_layer_sizes': (200,), 'learning_rate': 'adaptive', 'momentum': 1.0, 'solver': 'sgd'}Final Accuracy Score (Test Set): 0.8085106382978723
+2021-03-28 22:18:11.144053Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7774158523344191
+Best Activation Type (Highest Accuracy, Test Validation Set): logistic
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7850162866449512
+Best Momentum Value (Highest Accuracy, Test Validation Set): 0.2
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.8382193268186754
+Best Learning Rate (Highest Accuracy, Test Validation Set): adaptive
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.741585233441911
+Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): (50, 50, 50)
+Best Params from GridSearchCV: {'activation': 'identity', 'hidden_layer_sizes': (200,), 'learning_rate': 'adaptive', 'momentum': 0.9, 'solver': 'sgd'}Final Accuracy Score (Test Set): 0.8653637350705755
+2021-03-28 22:59:57.836962Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.747014115092291
+Best Activation Type (Highest Accuracy, Test Validation Set): logistic
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.8132464712269273
+Best Momentum Value (Highest Accuracy, Test Validation Set): 0.1
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.8284473398479913
+Best Learning Rate (Highest Accuracy, Test Validation Set): adaptive
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.749185667752443
+Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): (200, 200, 200)
+Best Params from GridSearchCV: {'activation': 'tanh', 'hidden_layer_sizes': (200, 200, 200), 'learning_rate': 'adaptive', 'momentum': 0.9, 'solver': 'sgd'}Final Accuracy Score (Test Set): 0.8566775244299675
+2021-03-29 00:09:20.296740Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7969598262757872
+Best Activation Type (Highest Accuracy, Test Validation Set): logistic
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7828447339847991
+Best Momentum Value (Highest Accuracy, Test Validation Set): 0.1
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7633007600434311
+Best Learning Rate (Highest Accuracy, Test Validation Set): adaptive
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.752442996742671
+Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): (100, 100, 100)
+Best Params from GridSearchCV: {'activation': 'identity', 'hidden_layer_sizes': (200, 200, 200), 'learning_rate': 'adaptive', 'momentum': 0.9, 'solver': 'sgd'}Final Accuracy Score (Test Set): 0.8534201954397395
+2021-03-29 01:06:15.784302Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7741585233441911
+Best Activation Type (Highest Accuracy, Test Validation Set): identity
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7915309446254072
+Best Momentum Value (Highest Accuracy, Test Validation Set): 0.1
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.8175895765472313
+Best Learning Rate (Highest Accuracy, Test Validation Set): adaptive
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.750271444082519
+Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): (200, 200, 200)
+Best Params from GridSearchCV: {'activation': 'identity', 'hidden_layer_sizes': (200, 200), 'learning_rate': 'adaptive', 'momentum': 0.9, 'solver': 'sgd'}Final Accuracy Score (Test Set): 0.8707926167209555
+2021-03-29 01:55:02.474136Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7861020629750272
+Best Activation Type (Highest Accuracy, Test Validation Set): logistic
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.8013029315960912
+Best Momentum Value (Highest Accuracy, Test Validation Set): 0.1
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7209554831704669
+Best Learning Rate (Highest Accuracy, Test Validation Set): constant
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.750271444082519
+Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): (200, 200)
+Best Params from GridSearchCV: {'activation': 'identity', 'hidden_layer_sizes': (200,), 'learning_rate': 'adaptive', 'momentum': 0.9, 'solver': 'sgd'}Final Accuracy Score (Test Set): 0.8686210640608035
+2021-03-29 02:35:51.507095Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.755700325732899
+Best Activation Type (Highest Accuracy, Test Validation Set): logistic
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7904451682953312
+Best Momentum Value (Highest Accuracy, Test Validation Set): 0.7
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.8230184581976113
+Best Learning Rate (Highest Accuracy, Test Validation Set): adaptive
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.756786102062975
+Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): (200, 200, 200)
+Best Params from GridSearchCV: {'activation': 'identity', 'hidden_layer_sizes': (200,), 'learning_rate': 'adaptive', 'momentum': 0.9, 'solver': 'sgd'}Final Accuracy Score (Test Set): 0.8675352877307275
+2021-03-29 03:16:38.000607Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7969598262757872
+Best Activation Type (Highest Accuracy, Test Validation Set): logistic
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7774158523344191
+Best Momentum Value (Highest Accuracy, Test Validation Set): 0.2
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.8295331161780674
+Best Learning Rate (Highest Accuracy, Test Validation Set): adaptive
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.741585233441911
+Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): (200, 200, 200)
+Best Params from GridSearchCV: {'activation': 'identity', 'hidden_layer_sizes': (200,), 'learning_rate': 'adaptive', 'momentum': 0.8, 'solver': 'sgd'}Final Accuracy Score (Test Set): 0.8023887079261672
+2021-03-29 03:57:06.419837Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.7687296416938111
+Best Activation Type (Highest Accuracy, Test Validation Set): logistic
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.752442996742671
+Best Momentum Value (Highest Accuracy, Test Validation Set): 0.5
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.8447339847991314
+Best Learning Rate (Highest Accuracy, Test Validation Set): adaptive
+Training Neural Network Model...Best Accuracy Score (Test Validation Set): 0.756786102062975
+Best Hidden Layer Sizes (Highest Accuracy, Test Validation Set): (100,)
+Best Params from GridSearchCV: {'activation': 'identity', 'hidden_layer_sizes': (200,), 'learning_rate': 'adaptive', 'momentum': 0.8, 'solver': 'sgd'}Final Accuracy Score (Test Set): 0.8631921824104235
