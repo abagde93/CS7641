@@ -5,7 +5,10 @@ import time
 import sys
 import matplotlib.pyplot as plt
 
+
 from hiive.mdptoolbox.mdp import PolicyIteration, ValueIteration, QLearning, PolicyIterationModified
+from gym.envs.toy_text.frozen_lake import generate_random_map
+
 
 
 ##### FUNCTIONS USED #####
@@ -131,17 +134,20 @@ def directions_lake():
 
 
 
-##### EXPERIMENT 1 (frozenlake - small) #####
-plot_path = '/Users/ajinkya.bagde/Desktop/CS7641/AS4/frozenlake_small/'
+##### EXPERIMENT 3 (frozenlake - large) #####
+plot_path = '/Users/ajinkya.bagde/Desktop/CS7641/AS4/frozenlake_large/'
 
-env = gym.make('FrozenLake-v0')
+env_map = generate_random_map(size=25)
+env = gym.make("FrozenLake-v0", desc=env_map)
 env = env.unwrapped
 desc = env.unwrapped.desc
+env.reset()
+env.render()
 
 
 list_scores, time_array, gamma_array, iters, best_vals = [0]*10, [0]*10, [0]*10, [0]*10, [0]*10
 
-print('Frozen Lake (Small) - Policy Iteration')
+print('Frozen Lake (Large) - Policy Iteration')
 for i in range(0,10):
 
     # Get Policy Iteration Metrics
@@ -158,7 +164,7 @@ for i in range(0,10):
 
 
 
-plt.figure()
+
 plt.plot(gamma_array, time_array)
 plt.xlabel('Gammas')
 plt.title('Frozen Lake - Policy Iteration - Execution Time Analysis')
@@ -166,7 +172,6 @@ plt.ylabel('Execution Time (s)')
 plt.grid()
 plt.savefig(plot_path + 'policy_execution_time_analysis.png')
 
-plt.figure()
 plt.plot(gamma_array,list_scores)
 plt.xlabel('Gammas')
 plt.ylabel('Average Rewards')
@@ -174,7 +179,6 @@ plt.title('Frozen Lake - Policy Iteration - Reward Analysis')
 plt.grid()
 plt.savefig(plot_path + 'policy_reward_analysis.png')
 
-plt.figure()
 plt.plot(gamma_array,iters)
 plt.xlabel('Gammas')
 plt.ylabel('Iterations to Converge')
@@ -184,7 +188,8 @@ plt.savefig(plot_path + 'policy_convergence_analysis.png')
 
 list_scores, time_array, gamma_array, iters, best_vals = [0]*10, [0]*10, [0]*10, [0]*10, [0]*10
 
-print('Frozen Lake (Small) - Value Iteration')
+
+print('Frozen Lake (Large) - Value Iteration')
 for i in range(0,10):
 
     # Get Value Iteration Metrics & plot policy map
@@ -193,7 +198,7 @@ for i in range(0,10):
     policy = extract_policy(env,best_value, gamma = i/10)
     policy_score = evaluate_policy(env, policy, gamma = i/10)
     gamma = i/10
-    plot = plot_policy_map('Frozen Lake Policy Map Iteration '+ str(i) + ' (Value Iteration) ' + 'Gamma: '+ str(gamma),policy.reshape(4,4),desc,colors_lake(),directions_lake())
+    plot = plot_policy_map('Frozen Lake Policy Map Iteration '+ str(i) + ' (Value Iteration) ' + 'Gamma: '+ str(gamma),policy.reshape(25,25),desc,colors_lake(),directions_lake())
     plt.savefig(plot_path + '/maps/' + 'iteration_' + str(i) + "_gamma_value_" + str(gamma) + '.png')
     end=time.time()
 
@@ -204,7 +209,6 @@ for i in range(0,10):
     best_vals[i] = best_value
     list_scores[i]=np.mean(policy_score)
     time_array[i]=end-st
-
 
 plt.figure()
 plt.plot(gamma_array, time_array)
@@ -230,16 +234,8 @@ plt.title('Frozen Lake - Value Iteration - Convergence Analysis')
 plt.grid()
 plt.savefig(plot_path + 'value_convergence_analysis.png')
 
-plt.figure()
-plt.plot(gamma_array,best_vals)
-plt.xlabel('Gammas')
-plt.ylabel('Optimal Value')
-plt.title('Frozen Lake - Value Iteration - Best Value Analysis')
-plt.grid()
-plt.savefig(plot_path + 'value_bestvalue_analysis.png')
 
-
-print('Frozen Lake (Small) - Q-Learning')
+print('Frozen Lake (Large) - Q-Learning')
 
 states = env.observation_space.n
 actions = env.action_space.n
@@ -285,12 +281,12 @@ plt.plot(niters, time_array, label='epsilon=0.95')
 plt.title('Frozenlake QLearning: Iteration vs Time')
 plt.savefig(plot_path + 'qlearning_iteration_time_analysis.png')
 
-# Plots for variable gammas
+# # Plots for variable gammas
 
 gammas = np.arange(0.1, 0.99, 0.04)
 for gamma in gammas:
     print("doing gamma ", gamma)
-    ql = QLearning(P, R, gamma, n_iter=10000)
+    ql = QLearning(P, R, gamma, n_iter=500000, epsilon=.95)
     ql.run()
     time = ql.time
     maxV = np.amax(ql.V)
@@ -313,7 +309,7 @@ plt.savefig(plot_path + 'qlearning_gamma_time_analysis.png')
 epsilons = [.1,.2,.3,.4,.5,.6,.7,.8,.9]
 for epsilon_val in epsilons:
     print("doing epsilon ", epsilon_val)
-    ql = QLearning(P, R, epsilon=epsilon_val, n_iter=100000, gamma=0.9)
+    ql = QLearning(P, R, epsilon=epsilon_val, n_iter=500000, gamma=0.9)
     ql.run()
     time = ql.time
     maxV = np.amax(ql.V)
@@ -331,7 +327,6 @@ plt.figure()
 plt.plot(epsilons, time_array, label='n_iter=500000')
 plt.title('Frozenlake QLearning: Epsilon vs Time')
 plt.savefig(plot_path + 'qlearning_epsilon_time_analysis.png')
-
 
 
 

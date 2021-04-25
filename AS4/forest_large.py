@@ -10,10 +10,10 @@ import mdptoolbox, mdptoolbox.example
 from hiive.mdptoolbox.mdp import PolicyIteration, ValueIteration, QLearning, PolicyIterationModified
 from hiive.mdptoolbox.example import forest
 
-plot_path = '/Users/ajinkya.bagde/Desktop/CS7641/AS4/forest_small/'
+plot_path = '/Users/ajinkya.bagde/Desktop/CS7641/AS4/forest_large/'
 
 print('POLICY ITERATION WITH FOREST MANAGEMENT')
-P, R = mdptoolbox.example.forest(S=200)
+P, R = mdptoolbox.example.forest(S=2000)
 value_f = [0]*10
 policy = [0]*10
 iters = [0]*10
@@ -58,7 +58,7 @@ plt.savefig(plot_path + 'policy_convergence_analysis.png')
 
 
 print('VALUE ITERATION WITH FOREST MANAGEMENT')
-P, R = mdptoolbox.example.forest(S=200)
+P, R = mdptoolbox.example.forest(S=2000)
 value_f = [0]*10
 policy = [0]*10
 iters = [0]*10
@@ -94,7 +94,7 @@ plt.grid()
 plt.savefig(plot_path + 'value_reward_analysis.png')
 
 plt.figure()
-plt.plot(gamma_arr, iters)
+plt.plot(gamma_arr,iters)
 plt.xlabel('Gammas')
 plt.ylabel('Iterations to Converge')
 plt.title('Forest Management - Value Iteration - Convergence Analysis')
@@ -103,7 +103,7 @@ plt.savefig(plot_path + 'value_convergence_analysis.png')
 
 print('Q LEARNING WITH FOREST MANAGEMENT')
 
-P, R = mdptoolbox.example.forest(S=200,p=0.01)
+P, R = mdptoolbox.example.forest(S=2000,p=0.01)
 value_f = []
 policy = []
 iters = []
@@ -135,12 +135,12 @@ plt.plot(niters, time_array, label='epsilon=0.95')
 plt.title('Forest QLearning: Iteration vs Time')
 plt.savefig(plot_path + 'qlearning_iteration_time_analysis.png')
 
-# Plots for variable gammas
+Plots for variable gammas
 
 gammas = np.arange(0.1, 0.99, 0.04)
 for gamma in gammas:
     print("doing gamma ", gamma)
-    ql = QLearning(P, R, gamma, n_iter=100000, epsilon=.95)
+    ql = QLearning(P, R, gamma, n_iter=10000, epsilon=.95)
     ql.run()
     time = ql.time
     maxV = np.amax(ql.V)
@@ -174,10 +174,10 @@ for epsilon_val in epsilons:
 
 plt.figure()
 plt.plot(epsilons, rew_array, label='n_iter=100000')
-plt.title('Frozenlake QLearning: Epsilon vs average rewards')
+plt.title('Forest QLearning: Epsilon vs average rewards')
 plt.savefig(plot_path + 'qlearning_epsilon_rewards_analysis.png')
 
 plt.figure()
 plt.plot(epsilons, time_array, label='n_iter=100000')
-plt.title('Frozenlake QLearning: Epsilon vs Time')
+plt.title('Forest QLearning: Epsilon vs Time')
 plt.savefig(plot_path + 'qlearning_epsilon_time_analysis.png')
